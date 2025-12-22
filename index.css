@@ -7,34 +7,75 @@ body {
 
 /* Keyframe Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(50px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Animation Classes */
@@ -43,7 +84,7 @@ body {
 }
 
 .animate-slide-up {
-  opacity: 0; /* Only if using forwards, start hidden */
+  opacity: 0;
   animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -57,11 +98,25 @@ body {
 }
 
 /* Stagger Delays */
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-700 { animation-delay: 700ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
 
 /* Interactive Hover Effects */
 .hover-card {
@@ -83,4 +138,48 @@ body {
 
 .group:hover .group-hover-rotate {
   transform: rotate(12deg) scale(1.1);
+}
+
+/* Star Animation */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4) rotate(10deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.star-pop {
+  animation: pop 0.3s ease-out forwards;
+  color: #fbbf24 !important;
+  /* Force nice yellow on click */
+}
+
+/* Ensure stars have pointer cursor */
+#ulasan [data-lucide="star"],
+#ulasan .lucide-star {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#ulasan [data-lucide="star"]:hover,
+#ulasan .lucide-star:hover {
+  transform: scale(1.2);
+}
+
+/* --- PARTICLES CANVAS --- */
+#particleCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  /* Bring to front as overlay */
+  pointer-events: none;
+  /* Click-through */
 }

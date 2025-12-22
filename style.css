@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slide-up {
+    opacity: 0;
+    /* Only if using forwards, start hidden */
+    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+    opacity: 0;
+    animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Stagger Delays */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+.delay-700 {
+    animation-delay: 700ms;
+}
+
+/* Interactive Hover Effects */
+.hover-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.group:hover .group-hover-rotate {
+    transform: rotate(12deg) scale(1.1);
+}
+
+/* Custom Footer Design */
+.footer-shape {
+    position: relative;
+    height: 80px;
+    background: #1f2f8b;
+    /* biru */
+    overflow: hidden;
+}
+
+/* garis putih */
+.footer-shape::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: 12px;
+    background: white;
+    transform: skewX(-25deg);
+    transform-origin: left;
+}
+
+/* garis merah */
+.footer-shape::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 75%;
+    height: 14px;
+    background: #d71920;
+    /* merah */
+    transform: skewX(-25deg);
+    transform-origin: left;
+}
+
+/* Footer utama */
+.footer {
+    background: #1f2f8b;
+    color: white;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+/* Corporate Design Refinements (Bumi Style) */
+
+/* Top Info Bar */
+.top-bar {
+    background-color: #0f172a;
+    /* Dark Slate/Navy */
+    color: #cbd5e1;
+    font-size: 0.85rem;
+}
+
+/* Corporate Card (Image Based) */
+.corp-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    /* Boxy look */
+    height: 300px;
+    background-color: #000;
+}
+
+.corp-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    opacity: 0.8;
+}
+
+.corp-card:hover img {
+    transform: scale(1.1);
+    opacity: 0.6;
+}
+
+.corp-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+}
+
+/* Section Title Strip */
+.section-strip-title {
+    border-left: 5px solid #d71920;
+    /* Brand Red */
+    padding-left: 15px;
+    line-height: 1.2;
+}
+
+/* Stat Ticker Strip */
+/* === AGGRESSIVE FOOTER REDUCTION === */
+
+/* 1. Force Footer Shape Height */
+.footer-shape {
+    height: 15px !important;
+    /* Extremely small strip */
+    min-height: 15px !important;
+}
+
+.footer-shape::before,
+.footer-shape::after {
+    height: 15px !important;
+    /* Match container */
+    transform: skewX(-45deg) !important;
+    /* Sharper angle to fit narrow height */
+}
+
+/* 2. Force Main Footer Internal Padding */
+.footer {
+    background-color: #1f2f8b;
+    /* Ensure blue background */
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+/* 3. Reduce Logo in Footer */
+.footer img {
+    height: 40px !important;
+    /* Force small logo */
+    width: auto !important;
+}
+
+/* 4. Tighten Navigation Links Spacing */
+.footer .flex.space-x-8 {
+    margin-bottom: 10px !important;
+}
+
+.footer .text-base {
+    font-size: 0.875rem !important;
+    /* 14px */
+}
+
+/* 5. Tighten Copyright Section */
+.footer .border-t {
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+}
+
+.footer .border-t p {
+    margin-bottom: 0 !important;
+}
