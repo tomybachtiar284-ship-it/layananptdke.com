@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "nav.services": "LAYANAN",
             "nav.projects": "PROYEK",
             "nav.contact": "KONTAK",
-            "hero.title": "Reliable Energy & <br/> <span class='text-red-500'>Infrastructure Partner</span>",
+            "hero.title": "Mitra Energi & <br/> <span class='text-red-500'>Infrastruktur Terpercaya</span>",
             "hero.subtitle": "Membangun masa depan Sulawesi Tengah dengan integritas, kualitas, dan profesionalisme berkelanjutan.",
             "hero.cta": "PELAJARI LEBIH LANJUT",
             "stat.exp": "TAHUN PENGALAMAN",
