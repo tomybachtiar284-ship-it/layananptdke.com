@@ -41,13 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- SPA VIEW SWITCHER (Single Page Behavior) ---
     const pages = {
         'beranda': ['beranda', 'stat-ticker', 'cta'],            // Home: Hero, Ticker, CTA
-        'tentang-kami': ['tentang-kami', 'struktur'],           // About: About, Structure
+        'tentang-kami': ['tentang-kami', 'struktur', 'sertifikat'], // About: About, Structure, Cert
         'layanan': ['layanan'],
         'proyek': ['proyek', 'ulasan'],                         // Projects: Projects, Reviews
         'kontak': ['kontak']
     };
 
-    const allSectionIds = ['beranda', 'stat-ticker', 'tentang-kami', 'struktur', 'layanan', 'proyek', 'ulasan', 'cta', 'kontak'];
+    const allSectionIds = ['beranda', 'stat-ticker', 'tentang-kami', 'struktur', 'sertifikat', 'layanan', 'proyek', 'ulasan', 'cta', 'kontak'];
 
     function showPage(pageId) {
         // 1. Hide ALL sections first
