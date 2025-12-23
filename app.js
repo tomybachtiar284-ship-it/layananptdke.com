@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Lucide Icons
     lucide.createIcons();
 
+    // Dev Pending Alert
+    document.querySelectorAll('.dev-pending').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Masih dalam pengembangan');
+        });
+    });
+
     // Mobile Menu Logic
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -67,6 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Scroll to top
         window.scrollTo({ top: 0, behavior: 'instant' });
 
+        // 4. Init Navbar State
+        initNavbar(pageId);
+
         // 4. Update Active Nav State
         updateActiveNav(pageId);
     }
@@ -104,11 +115,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Initial Load
-    showPage('beranda');
 
-    // Remove Old Scroll Logic (Navbar always white/solid in SPA mode for consistency)
-    navbar.classList.add('bg-white', 'shadow-md', 'py-2', 'border-b', 'border-gray-100');
-    navbar.classList.remove('bg-transparent', 'py-4', 'md:py-1');
+
+    // --- NAVBAR SCROLL & TRANSPARENCY LOGIC ---
+    const navbar = document.getElementById('navbar');
+    let scrollHandler = null;
+
+    function handleScroll() {
+        if (window.scrollY > 50) {
+            // Scrolled: Solid White
+            navbar.classList.add('bg-white', 'shadow-md', 'py-2');
+            navbar.classList.remove('bg-transparent', 'py-4');
+            updateNavColors('dark');
+        } else {
+            // Top: Transparent
+            navbar.classList.add('bg-transparent', 'py-4');
+            navbar.classList.remove('bg-white', 'shadow-md', 'py-2');
+            updateNavColors('white');
+        }
+    }
+
+    function updateNavColors(theme) {
+        const navLinks = document.querySelectorAll('#navbar a.text-sm'); // Desktop links
+        const logo = document.querySelector('#navbar img');
+
+        if (theme === 'white') {
+            // Transparent Bg -> White Text
+            navLinks.forEach(link => {
+                link.classList.add('text-white');
+                link.classList.remove('text-gray-800');
+            });
+            // Optional: Invert logo/brightness if needed for dark backgrounds
+            // logo.classList.add('brightness-0', 'invert'); 
+        } else {
+            // White Bg -> Dark Text
+            navLinks.forEach(link => {
+                link.classList.add('text-gray-800');
+                link.classList.remove('text-white');
+            });
+            // logo.classList.remove('brightness-0', 'invert');
+        }
+    }
+
+    // Initialize Navbar for Page
+    function initNavbar(pageId) {
+        const isDesktop = window.innerWidth >= 768;
+
+        // Cleanup old listener
+        if (scrollHandler) {
+            window.removeEventListener('scroll', scrollHandler);
+            scrollHandler = null;
+        }
+
+        if (pageId === 'beranda' && isDesktop) {
+            // Home & Desktop: Start Transparent, then Scroll
+            scrollHandler = handleScroll;
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Trigger once to set initial state
+        } else {
+            // Other Pages or Mobile: Always Solid White
+            navbar.classList.add('bg-white', 'shadow-md', 'py-2');
+            navbar.classList.remove('bg-transparent', 'py-4');
+            updateNavColors('dark');
+        }
+    }
 
     // Stats Animation Logic
     const statsSection = document.getElementById('stats-section');
@@ -493,7 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Default to ID
-    setLanguage('id');
+
 
     // Review Stars Interaction
     const reviewsSection = document.getElementById('ulasan');
@@ -673,5 +743,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         animate();
     }
+
+    // Initial Load
+    setLanguage('id');
+    showPage('beranda');
 
 });

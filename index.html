@@ -28,26 +28,25 @@
   <div class="relative z-10">
 
     <!-- Top Bar (Corporate Info) -->
-    <div class="top-bar py-2 hidden md:block">
+    <div class="top-bar py-2 hidden md:block relative z-[60]">
       <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
         <div class="flex items-center gap-6">
-          <span class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 0822-9348-3048</span>
-          <span class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i>
-            ptdayakaryaenergy@gmail.com</span>
+
+
         </div>
         <div class="flex items-center gap-4 text-xs font-bold tracking-wider">
-          <a href="#" class="hover:text-white">CAREERS</a>
+          <a href="#" class="hover:text-white dev-pending">CAREERS</a>
           <span class="text-gray-600">|</span>
-          <a href="#" class="hover:text-white">INVESTOR RELATIONS</a>
+          <a href="#" class="hover:text-white dev-pending">INVESTOR RELATIONS</a>
           <span class="text-gray-600">|</span>
-          <a href="#" class="text-white">ID</a>
-          <a href="#" class="text-gray-500 hover:text-white">EN</a>
+          <a href="#" class="text-white dev-pending">ID</a>
+          <a href="#" class="text-gray-500 hover:text-white dev-pending">EN</a>
         </div>
       </div>
     </div>
 
-    <!-- Corporate Navigation (Sticky White) -->
-    <nav id="navbar" class="sticky top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
+    <!-- Corporate Navigation (Fixed White/Transparent) -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
       <div class="container mx-auto px-4 md:px-8 flex justify-between items-center py-2 md:py-1">
         <!-- Logo -->
         <a href="#" class="flex items-center gap-2">
@@ -109,8 +108,8 @@
     <!-- Corporate Hero Section -->
     <section id="beranda" class="relative h-[600px] flex items-center overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1474674556023-efef886fa147?q=80&w=2070&auto=format&fit=crop"
-          alt="Construction Site" class="w-full h-full object-cover" />
+        <img src="assets/img/hero-bg.jpg" alt="Construction Site"
+          class="w-full h-full object-cover animate-ken-burns" />
         <!-- Dark overlay for text readability -->
         <div class="absolute inset-0 bg-black/40"></div>
       </div>
