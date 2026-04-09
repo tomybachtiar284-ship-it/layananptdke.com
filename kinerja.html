@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laporan Kinerja - PT. DAYA KARYA ENERGI</title>
+    <meta name="description" content="Laporan kinerja operasional dan finansial PT. Daya Karya Energi." />
+    <link rel="icon" type="image/png" href="brand-logo.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 font-sans">
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300 py-2">
+        <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="assets/logo-v2.png" alt="Daya Karya Energy Logo" class="h-12 md:h-16 w-auto object-contain transform scale-125 md:scale-[1.75] origin-left ml-2 md:ml-8" />
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html#beranda" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide">Beranda</a>
+                <a href="index.html#tentang-kami" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide">Tentang Kami</a>
+                <a href="index.html#layanan" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide">Layanan</a>
+                <a href="index.html#proyek" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide">Proyek</a>
+                <a href="#" class="text-sm font-bold text-red-600 border-b-2 border-red-600 uppercase tracking-wide">Kinerja</a>
+                <a href="index.html#kontak" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide">Kontak</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" class="text-gray-800 p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl flex flex-col p-4 space-y-4 md:hidden">
+            <a href="index.html#beranda" class="text-lg font-bold text-gray-900">Beranda</a>
+            <a href="#" class="text-lg font-bold text-red-600">Kinerja</a>
+            <a href="index.html#kontak" class="text-lg font-bold text-gray-900">Kontak</a>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 bg-blue-900 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <i data-lucide="bar-chart-2" class="w-full h-full object-cover"></i>
+        </div>
+        <div class="container mx-auto px-4 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Laporan Kinerja PT DKE</h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto font-light mb-8">
+                Transparansi pencapaian operasional, pertumbuhan keanggotaan, serta metrik finansial perusahaan yang terintegrasi.
+            </p>
+            
+            <!-- Year Filter -->
+            <div class="inline-flex flex-col md:flex-row items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20">
+                <label for="year-filter" class="font-bold uppercase tracking-wider text-sm">Pilih Tahun Laporan:</label>
+                <div class="relative">
+                    <select id="year-filter" class="appearance-none bg-white text-blue-900 font-bold px-6 py-2 pr-10 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer text-lg">
+                        <option value="2025" selected>2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-blue-900">
+                        <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Not Available State -->
+    <div id="content-empty" class="hidden container mx-auto px-4 py-32 text-center">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-12 max-w-2xl mx-auto">
+            <i data-lucide="file-search" class="w-20 h-20 mx-auto text-slate-300 mb-6"></i>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Data Belum Tersedia</h2>
+            <p class="text-slate-500 text-lg">Laporan kinerja untuk tahun yang Anda pilih belum dipublikasikan atau masih dalam tahap penyusunan.</p>
+        </div>
+    </div>
+
+    <div id="content-2025" class="container mx-auto px-4 py-12 space-y-20">
+
+        <!-- Struktur Organisasi & Keanggotaan -->
+        <section id="struktur-keanggotaan" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Fondasi Organisasi & Pertumbuhan Anggota</h2>
+                <div class="w-16 h-1 bg-red-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                <!-- Org Chart -->
+                <div class="lg:w-2/3 glass-card rounded-2xl p-6 md:p-10 border border-slate-200">
+                    <div class="flex flex-col items-center gap-6">
+                        <!-- Rapat Anggota -->
+                        <div class="bg-yellow-400 text-slate-900 font-bold px-8 py-3 rounded-lg shadow-md border-b-4 border-yellow-500">
+                            Rapat Anggota (Otoritas Tertinggi)
+                        </div>
+                        <div class="w-px h-6 bg-slate-300"></div>
+                        <!-- Pembina -->
+                        <div class="bg-blue-600 text-white font-bold px-8 py-3 rounded-lg shadow-md border-b-4 border-blue-700">
+                            Pembina: Budi Widjaja
+                        </div>
+                        
+                        <div class="w-px h-6 bg-slate-300 relative">
+                            <div class="absolute top-1/2 left-1/2 w-48 md:w-96 h-px bg-slate-300 transform -translate-x-1/2 -translate-y-1/2"></div>
+                        </div>
+
+                        <!-- Pengurus & Pengawas -->
+                        <div class="flex flex-col md:flex-row justify-between w-full max-w-2xl gap-8 md:gap-0">
+                            <!-- Pengurus -->
+                            <div class="flex flex-col items-center w-full relative">
+                                <div class="w-px h-6 bg-slate-300 absolute -top-6"></div>
+                                <div class="bg-blue-600 text-white font-bold px-8 py-3 rounded-lg shadow-md w-full max-w-[200px] text-center border-b-4 border-blue-700">
+                                    Pengurus<br/>(Serba Usaha)
+                                </div>
+                                <div class="w-px h-6 bg-slate-300"></div>
+                                <div class="bg-white text-slate-700 px-6 py-4 rounded-xl shadow-sm border border-slate-200 text-sm md:text-base w-full max-w-[250px] text-left">
+                                    <ul class="space-y-2">
+                                        <li><span class="font-bold text-blue-800">Ketua:</span> Adiatma</li>
+                                        <li><span class="font-bold text-blue-800">Sekretaris:</span> Tomy Bachtiar</li>
+                                        <li><span class="font-bold text-blue-800">Bendahara:</span> Muh. Sultrisno</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- Pengawas -->
+                            <div class="flex flex-col items-center w-full relative">
+                                <div class="w-px h-6 bg-slate-300 absolute -top-6"></div>
+                                <div class="bg-blue-600 text-white font-bold px-8 py-3 rounded-lg shadow-md w-full max-w-[200px] text-center border-b-4 border-blue-700">
+                                    Pengawas
+                                </div>
+                                <div class="w-px h-6 bg-slate-300"></div>
+                                <div class="bg-white text-slate-700 px-6 py-4 rounded-xl shadow-sm border border-slate-200 text-sm md:text-base w-full max-w-[250px] text-left">
+                                    <ul class="space-y-2">
+                                        <li><span class="font-bold text-blue-800">Koordinator:</span> Budi Widjaja</li>
+                                        <li><span class="font-bold text-blue-800">Anggota:</span> Wisnu Wijaya</li>
+                                        <li><span class="font-bold text-blue-800">Anggota:</span> Eko Suyanto Wibowo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hubungan dengan PT DKE -->
+                        <div class="w-px h-8 bg-slate-300 mt-2"></div>
+                        <div class="bg-cyan-100 border-2 border-cyan-400 p-6 rounded-2xl w-full max-w-2xl text-center shadow-md relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-cyan-500"></div>
+                            <h3 class="font-bold text-slate-800 mb-4 uppercase tracking-wider text-sm">Struktur Anak Usaha (PT DKE)</h3>
+                            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                                <div class="bg-white px-6 py-3 rounded-lg shadow-sm border border-slate-200 flex-1">
+                                    <span class="block text-xs uppercase text-slate-500">Direktur</span>
+                                    <span class="font-bold text-cyan-800">Abdul Rahman</span>
+                                </div>
+                                <div class="bg-white px-6 py-3 rounded-lg shadow-sm border border-slate-200 flex-1">
+                                    <span class="block text-xs uppercase text-slate-500">Komisaris</span>
+                                    <span class="font-bold text-cyan-800">Abd. Rahman Malotolo</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Pertumbuhan Anggota -->
+                <div class="lg:w-1/3 w-full">
+                    <div class="bg-white rounded-2xl border-4 border-blue-600 p-8 shadow-xl relative overflow-hidden h-full flex flex-col justify-center">
+                        <div class="absolute -right-4 -top-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20"></div>
+                        <h3 class="text-xl font-bold text-center text-slate-800 mb-8">Pertumbuhan<br>Keanggotaan</h3>
+                        
+                        <div class="flex justify-center items-center gap-6 mb-8">
+                            <div class="text-center">
+                                <span class="text-5xl font-black text-slate-800">19</span>
+                                <span class="block text-sm font-semibold text-slate-600 mt-2">Anggota<br>(2024)</span>
+                            </div>
+                            <div class="text-blue-600 animate-bounce">
+                                <i data-lucide="arrow-up" class="w-12 h-12 stroke-[3]"></i>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-5xl font-black text-blue-600">20</span>
+                                <span class="block text-sm font-semibold text-blue-800 mt-2">Anggota<br>(2025)</span>
+                            </div>
+                        </div>
+
+                        <p class="text-center text-sm font-medium text-slate-500 italic bg-slate-50 p-3 rounded-lg">
+                            <i data-lucide="info" class="w-4 h-4 inline-block mr-1 -mt-1"></i> Sudah termasuk Pengurus dan Pengawas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sorotan Operasional -->
+        <section id="operasional" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Sorotan Operasional Sepanjang 2025</h2>
+                <div class="w-16 h-1 bg-red-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-12">
+                
+                <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+
+                <div class="text-center md:text-left z-10 flex-1">
+                    <h3 class="text-8xl md:text-[10rem] font-black text-transparent bg-clip-text bg-gradient-to-br from-cyan-400 to-blue-600 leading-none mb-4">
+                        119
+                    </h3>
+                    <p class="text-2xl md:text-4xl font-bold text-white uppercase tracking-wide">
+                        Total Pekerjaan<br>
+                        <span class="text-cyan-400">Diselesaikan</span>
+                    </p>
+                </div>
+
+                <div class="z-10 flex-1 w-full">
+                    <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+                        <h4 class="text-slate-300 font-semibold mb-4 uppercase text-sm tracking-wider flex items-center gap-2">
+                            <i data-lucide="users" class="w-4 h-4"></i> Kolaborasi Klien & Mitra:
+                        </h4>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default border border-transparent hover:border-cyan-400">PT PLN Nusantara Power Services</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default">PT PJB Services Proyek</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default">PT NPS PLTU Ampana</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default">PT Delapanpintu Utama</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default">PT Trivela Bangun Insani</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default">PT Raihan Tehnik Utama</span>
+                            <span class="px-4 py-2 bg-white text-slate-900 rounded-full text-sm font-bold shadow hover:scale-105 transition-transform cursor-default border-2 border-red-500">PT YK / PT Yeka</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Tabel Daftar Pekerjaan -->
+        <section id="daftar-pekerjaan" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Rincian Daftar Pekerjaan Tahun 2025</h2>
+                <div class="w-16 h-1 bg-red-500 mx-auto rounded mb-4"></div>
+                <p class="text-slate-500 font-light max-w-2xl mx-auto">Tabel di bawah ini memuat sebagian rincian histori pekerjaan operasional yang tercatat. Gunakan fitur pencarian untuk menemukan laporan spesifik.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                <div class="p-6 border-b border-slate-100 bg-slate-50 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="table" class="w-6 h-6 text-blue-600"></i>
+                        <h3 class="font-bold text-slate-800 text-lg">Histori Pekerjaan</h3>
+                    </div>
+                    
+                    <div class="relative w-full md:w-72">
+                        <input type="text" id="job-search" placeholder="Cari nama pekerjaan..." class="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
+                        <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3 top-2.5"></i>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-700 whitespace-nowrap">
+                        <thead class="bg-gradient-to-r from-cyan-500 to-blue-600 text-white uppercase text-xs font-bold tracking-wider">
+                            <tr>
+                                <th class="px-6 py-4 w-16">No</th>
+                                <th class="px-6 py-4">Daftar Pekerjaan</th>
+                                <th class="px-6 py-4">Perusahaan Kerjasama</th>
+                                <th class="px-6 py-4 text-center">Tanggal Pekerjaan</th>
+                                <th class="px-6 py-4 text-right">Modal PT DKE</th>
+                            </tr>
+                        </thead>
+                        <tbody id="job-table-body" class="divide-y divide-slate-100">
+                            <!-- Data Will Be Loaded Here via JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="p-4 bg-slate-50 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm text-slate-500" id="table-info">Menampilkan 1-10 dari total data</span>
+                        <div class="flex items-center gap-2 text-sm text-slate-600">
+                            <span>Tampilkan:</span>
+                            <select id="rows-per-page" class="border border-slate-300 rounded px-2 py-1 bg-white focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="all">Semua</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="prev-btn" class="px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                        <button id="next-btn" class="px-4 py-2 border border-slate-300 rounded-lg bg-white text-slate-700 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fondasi Finansial -->
+        <section id="finansial" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Fondasi Finansial: Posisi Modal Awal 2025</h2>
+                <div class="w-16 h-1 bg-red-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Data Table -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-700">
+                            <thead class="bg-cyan-500 text-white uppercase text-xs font-bold">
+                                <tr>
+                                    <th class="px-6 py-4">Uraian</th>
+                                    <th class="px-6 py-4 text-right">Jumlah (Rp)</th>
+                                    <th class="px-6 py-4">Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="bg-yellow-50 hover:bg-yellow-100 transition-colors">
+                                    <td class="px-6 py-3 font-semibold">Cadangan 2024</td>
+                                    <td class="px-6 py-3 text-right font-mono font-medium">34.169.508,40</td>
+                                    <td class="px-6 py-3"></td>
+                                </tr>
+                                <tr class="bg-yellow-50 hover:bg-yellow-100 transition-colors">
+                                    <td class="px-6 py-3 font-semibold">Simpanan Pokok & Wajib (2024)</td>
+                                    <td class="px-6 py-3 text-right font-mono font-medium">42.000.000,00</td>
+                                    <td class="px-6 py-3"><span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">20 Anggota</span></td>
+                                </tr>
+                                <tr class="bg-cyan-50">
+                                    <td class="px-6 py-3 font-semibold text-cyan-800">Subtotal Modal</td>
+                                    <td class="px-6 py-3 text-right font-mono font-bold text-cyan-800">76.169.508,40</td>
+                                    <td class="px-6 py-3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-3 font-semibold">Piutang 2024</td>
+                                    <td class="px-6 py-3 text-right font-mono font-medium">8.277.800,00</td>
+                                    <td class="px-6 py-3 text-xs italic">Akan dibagi ke Anggota</td>
+                                </tr>
+                                <tr class="bg-rose-50">
+                                    <td class="px-6 py-3 font-semibold text-rose-800">Pengeluaran 2024</td>
+                                    <td class="px-6 py-3 text-right font-mono font-medium text-rose-800">1.832.900,00</td>
+                                    <td class="px-6 py-3"></td>
+                                </tr>
+                                <tr class="bg-orange-50">
+                                    <td class="px-6 py-3 font-semibold text-orange-800">Anggota Resign & Bergabung</td>
+                                    <td class="px-6 py-3 text-right font-mono font-medium text-orange-800">12.600.000,00</td>
+                                    <td class="px-6 py-3"><span class="px-2 py-1 bg-orange-100 text-orange-800 rounded text-xs">6 Anggota</span></td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="bg-slate-800 text-white font-bold">
+                                <tr>
+                                    <td class="px-6 py-4">TOTAL SISA ANGGARAN 2025</td>
+                                    <td class="px-6 py-4 text-right font-mono text-lg text-green-400 border-t-2 border-white">76.919.508,40</td>
+                                    <td class="px-6 py-4"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Visual Breakdown -->
+                <div class="flex flex-col justify-center items-center gap-6 glass-card p-8 rounded-2xl">
+                    <div class="bg-blue-600 text-white p-4 rounded-xl shadow-md w-full max-w-sm text-center transform hover:scale-105 transition-transform">
+                        <span class="block text-sm uppercase opacity-90 mb-1">Cadangan 2024</span>
+                        <span class="text-2xl font-bold font-mono">Rp 34.169.508,40</span>
+                    </div>
+
+                    <div class="bg-slate-200 rounded-full w-10 h-10 flex items-center justify-center text-slate-800 font-bold text-xl shadow-inner">
+                        <i data-lucide="plus" class="w-6 h-6"></i>
+                    </div>
+
+                    <div class="bg-green-600 text-white p-4 rounded-xl shadow-md w-full max-w-sm text-center transform hover:scale-105 transition-transform">
+                        <span class="block text-sm uppercase opacity-90 mb-1">Simpanan Pokok & Wajib 2024</span>
+                        <span class="text-2xl font-bold font-mono">Rp 42.000.000,00</span>
+                    </div>
+
+                    <div class="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[20px] border-l-transparent border-r-transparent border-t-blue-800 mt-2"></div>
+
+                    <div class="bg-blue-800 border-[3px] border-cyan-400 text-white p-6 rounded-2xl shadow-xl w-full max-w-md text-center mt-2 relative overflow-hidden">
+                         <div class="absolute top-0 right-0 -m-4 w-24 h-24 bg-white opacity-10 rounded-full"></div>
+                        <span class="block text-sm font-semibold uppercase opacity-90 mb-2 tracking-wider">Total Sisa Anggaran 2025</span>
+                        <span class="text-3xl font-black font-mono text-cyan-300">Rp 76.919.508,40</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rekapitulasi Pembayaran -->
+        <section id="rekapitulasi" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Rekapitulasi Pembayaran</h2>
+                <div class="w-16 h-1 bg-red-500 mx-auto rounded"></div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-md border border-slate-100 overflow-x-auto">
+                <table class="w-full text-left text-sm whitespace-nowrap">
+                    <thead class="bg-blue-50 text-blue-900 border-b-2 border-blue-200">
+                        <tr>
+                            <th class="px-6 py-4 font-bold">Status Pembayaran</th>
+                            <th class="px-6 py-4 font-bold text-right">Sum of Modal PT DKE</th>
+                            <th class="px-6 py-4 font-bold text-right">Sum of Harga PO</th>
+                            <th class="px-6 py-4 font-bold text-right">Sum of Keuntungan PT DKE</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-amber-600 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Belum Dibayar</td>
+                            <td class="px-6 py-4 text-right font-mono text-slate-600">Rp 19.664.000,00</td>
+                            <td class="px-6 py-4 text-right font-mono text-slate-600">Rp 36.111.000,00</td>
+                            <td class="px-6 py-4 text-right font-mono font-medium text-amber-600">Rp 16.447.000,00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-emerald-600 flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4"></i> Sudah Dibayar</td>
+                            <td class="px-6 py-4 text-right font-mono text-slate-600">Rp 478.183.776,50</td>
+                            <td class="px-6 py-4 text-right font-mono text-slate-600">Rp 689.825.113,00</td>
+                            <td class="px-6 py-4 text-right font-mono font-medium text-emerald-600">Rp 211.641.336,50</td>
+                        </tr>
+                        <tr class="bg-cyan-100 font-bold border-t border-cyan-300 shadow-sm">
+                            <td class="px-6 py-4 text-cyan-900">GRAND TOTAL</td>
+                            <td class="px-6 py-4 text-right font-mono text-cyan-900">Rp 497.847.776,50</td>
+                            <td class="px-6 py-4 text-right font-mono text-cyan-900">Rp 725.936.113,00</td>
+                            <td class="px-6 py-4 text-right font-mono text-cyan-900">Rp 228.088.336,50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Kesimpulan -->
+        <section id="kesimpulan" class="space-y-8 bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 opacity-10">
+                <i data-lucide="pie-chart" class="w-full h-full object-cover transform scale-150 rotate-12"></i>
+            </div>
+            <div class="relative z-10 flex flex-col lg:flex-row gap-12 items-center justify-between">
+                
+                <div class="lg:w-1/2 space-y-6">
+                    <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500 mb-6">KESIMPULAN LABA BERSIH</h2>
+                    <p class="text-lg md:text-xl text-slate-300 leading-relaxed font-light">
+                        Berdasarkan hasil rekapitulasi operasional dan finansial tahun berjalan, total laba bersih yang dibukukan oleh <strong class="text-white font-bold border-b border-dashed border-white">PT DKE</strong> adalah sebesar:
+                    </p>
+                    <div class="bg-white text-slate-900 inline-block px-8 py-4 rounded-xl shadow-[0_0_40px_rgba(250,204,21,0.3)] border-2 border-yellow-400 transform -rotate-1">
+                        <span class="block text-sm uppercase tracking-widest text-slate-500 font-bold mb-1">Laba Bersih 2025</span>
+                        <span class="text-4xl md:text-5xl font-black font-mono">Rp 154.145.448,50</span>
+                    </div>
+                </div>
+
+                <!-- Simple Bar Chart Representation -->
+                <div class="lg:w-1/2 w-full max-w-lg bg-slate-800/80 p-6 rounded-2xl backdrop-blur-sm border border-slate-700">
+                    <div class="space-y-6">
+                        <!-- Keuntungan -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-2 font-mono">
+                                <span class="text-cyan-400">Total Keuntungan</span>
+                                <span class="text-cyan-300">Rp 228.088.336</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                                <div class="bg-cyan-500 h-4 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pengeluaran -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-2 font-mono">
+                                <span class="text-rose-400">Total Pengeluaran</span>
+                                <span class="text-rose-300">Rp 73.942.888</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                                <!-- Approx 32% of Keuntungan -->
+                                <div class="bg-rose-500 h-4 rounded-full" style="width: 32.4%"></div>
+                            </div>
+                        </div>
+
+                        <div class="w-full h-px bg-slate-600 my-4 border-dashed border-t"></div>
+                        
+                        <!-- Laba Bersih -->
+                        <div>
+                            <div class="flex justify-between text-sm mb-2 font-mono">
+                                <span class="text-green-400 font-bold uppercase tracking-wider">Laba Bersih</span>
+                                <span class="text-green-300 font-bold">Rp 154.145.448</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-6 overflow-hidden shadow-inner">
+                                <!-- Approx 67.6% of Keuntungan -->
+                                <div class="bg-green-500 h-6 rounded-full relative overflow-hidden" style="width: 67.6%">
+                                    <div class="absolute top-0 left-0 w-full h-full bg-white opacity-20"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12 mt-20 border-t border-slate-800">
+        <div class="container mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white rounded flex items-center justify-center text-blue-900 font-bold">D</div>
+                <span class="font-bold tracking-widest text-lg">PT DKE</span>
+            </div>
+            <div class="text-slate-400 text-sm text-center md:text-left">
+                &copy; <span id="current-year-footer">2025</span> PT. Daya Karya Energi. Laporan Kinerja.
+            </div>
+            <div class="flex gap-4 opacity-50">
+                <i data-lucide="twitter" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+                <i data-lucide="facebook" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+                <i data-lucide="instagram" class="w-5 h-5 cursor-pointer hover:text-white transition-colors"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Year Filter Logic
+        const yearFilter = document.getElementById('year-filter');
+        const content2025 = document.getElementById('content-2025');
+        const contentEmpty = document.getElementById('content-empty');
+        const currentYearFooter = document.getElementById('current-year-footer');
+
+        if (yearFilter) {
+            yearFilter.addEventListener('change', (e) => {
+                const selectedYear = e.target.value;
+                currentYearFooter.innerText = selectedYear;
+
+                if (selectedYear === '2025') {
+                    content2025.classList.remove('hidden');
+                    contentEmpty.classList.add('hidden');
+                } else {
+                    content2025.classList.add('hidden');
+                    contentEmpty.classList.remove('hidden');
+                }
+            });
+        }
+
+        // Data Table Logic (119 Rows)
+        const jobData = [
+            { no: 1, name: "Paket Pembelian Material Kabel Dll", company: "PT NPS PLTU AMPANA", date: "11-Jul-25", modal: "1.000.000,00" },
+            { no: 2, name: "Pembelian Semen Tonasa", company: "PT NPS PLTU AMPANA", date: "12-Jul-25", modal: "2.500.000,00" },
+            { no: 3, name: "Pembelian Gembok (Solid)", company: "PT NPS PLTU AMPANA", date: "12-Jul-25", modal: "600.000,00" },
+            { no: 4, name: "Pembelian Pipa Paralon PVC Dll", company: "PT NPS PLTU AMPANA", date: "12-Jul-25", modal: "3.254.000,00" },
+            { no: 5, name: "Tagihan: Pembelian Full Face Mask", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "4.250.000,00" },
+            { no: 6, name: "Tagihan: makan material PT. Yk Ampana", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "750.000,00" },
+            { no: 7, name: "Tagihan: makan olahraga PT. Yk Ampana", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "750.000,00" },
+            { no: 8, name: "Tagihan: makan rekreasi PT. Yk Ampana", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "450.000,00" },
+            { no: 9, name: "Tagihan alat ukur, PT NPS PLTU AMPANA", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "250.000,00" },
+            { no: 10, name: "Tagihan: Transport PT. Yk Ampana", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "250.000,00" },
+            { no: 11, name: "Tagihan: Alat ukur", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "175.000,00" },
+            { no: 12, name: "Tagihan: Timah", company: "PT NPS PLTU AMPANA", date: "15-Jul-25", modal: "500.000,00" },
+            { no: 13, name: "Tagihan Pakaian Kerja dll (Baju Anggota)", company: "PT PLN", date: "22-Jul-25", modal: "150.000,00" },
+            { no: 14, name: "Pembayaran PKL di SMK 1 Ampana Kota", company: "PT PLN", date: "22-Jul-25", modal: "450.000,00" },
+            { no: 15, name: "Penggandaan Buku Laporan Kerja shift dll", company: "PT NPS PLTU AMPANA", date: "23-Jul-25", modal: "600.000,00" },
+            { no: 16, name: "Pengadaan Pakaian / Baju Safety Lengan Panjang", company: "PT NPS PLTU AMPANA", date: "25-Jul-25", modal: "500.000,00" },
+            { no: 17, name: "Biaya Service Mobil Box", company: "PT NPS PLTU AMPANA", date: "26-Jul-25", modal: "850.000,00" },
+            { no: 18, name: "Biaya Transport Pengiriman Barang", company: "PT NPS PLTU AMPANA", date: "27-Jul-25", modal: "19.664.000,00" },
+            { no: 19, name: "Service AC Mesin Gedung Kantor", company: "PT NPS PLTU AMPANA", date: "11-Aug-25", modal: "600.000,00" },
+            { no: 20, name: "Biaya Test Swab Antigen", company: "PT NPS PLTU AMPANA", date: "15-Aug-25", modal: "600.000,00" },
+            { no: 21, name: "Tagihan ATK & Perlengkapan Kantor", company: "PT NPS PLTU AMPANA", date: "25-Aug-25", modal: "842.000,00" },
+            { no: 22, name: "Pelatihan K3 Tingkat Dasar", company: "PT NPS PLTU AMPANA", date: "25-Aug-25", modal: "1.000.000,00" },
+            { no: 23, name: "Pembuatan Spanduk / Banner", company: "PT NPS PLTU AMPANA", date: "25-Aug-25", modal: "1.075.000,00" },
+            { no: 24, name: "Pembuatan ID Card", company: "PT NPS PLTU AMPANA", date: "25-Aug-25", modal: "520.000,00" },
+            { no: 25, name: "Tagihan Transportasi Dinas luar Kota", company: "PT NPS PLTU AMPANA", date: "30-Aug-25", modal: "1.000.000,00" },
+            { no: 26, name: "Tagihan Konsumsi Rapat & Lembur", company: "PT NPS PLTU AMPANA", date: "30-Aug-25", modal: "10.152.000,00" },
+            { no: 27, name: "Biaya Pemasangan Instalasi Listrik Baru", company: "PT NPS PLTU AMPANA", date: "30-Aug-25", modal: "1.000.000,00" },
+            { no: 28, name: "Tagihan Biaya Pemeliharaan IT", company: "PT NPS PLTU AMPANA", date: "05-Sep-25", modal: "100.000,00" },
+            { no: 29, name: "Tagihan Biaya Publikasi / Iklan", company: "PT NPS PLTU AMPANA", date: "05-Sep-25", modal: "750.000,00" },
+            { no: 30, name: "Tagihan Biaya Kebersihan (Cleaning Service)", company: "PT TRIVELA BANGUN INSANI", date: "10-Sep-25", modal: "300.000,00" },
+            { no: 31, name: "Pembelian Alat Safety (Sepatu, Helm)", company: "PT TRIVELA BANGUN INSANI", date: "10-Sep-25", modal: "9.345.000,00" },
+            { no: 32, name: "Tagihan Biaya Pengamanan (Security)", company: "PT TRIVELA BANGUN INSANI", date: "10-Sep-25", modal: "1.354.000,00" },
+            { no: 33, name: "Pemeliharaan Taman & Lingkungan", company: "PT TRIVELA BANGUN INSANI", date: "11-Sep-25", modal: "624.000,00" },
+            { no: 34, name: "Sewa Peralatan Berat (Ekskavator)", company: "PT TRIVELA BANGUN INSANI", date: "11-Sep-25", modal: "8.477.000,00" },
+            { no: 35, name: "Sewa Truk Tronton Pengangkut", company: "PT TRIVELA BANGUN INSANI", date: "20-Sep-25", modal: "5.420.000,00" },
+            { no: 36, name: "Pembelian Sparepart Genset", company: "PT PJB SERVICES PROYEK", date: "25-Sep-25", modal: "87.000.000,00" },
+            { no: 37, name: "Service Besar Mesin Operasional", company: "PT DELAPAN PINTU UTAMA", date: "28-Sep-25", modal: "15.000.000,00" },
+            { no: 38, name: "Penyusunan Desain/RAB Konstruksi", company: "PT NPS PLTU AMPANA", date: "01-Oct-25", modal: "18.544.000,00" },
+            { no: 39, name: "Survey Lokasi Pekerjaan", company: "PT NPS PLTU AMPANA", date: "02-Oct-25", modal: "750.000,00" },
+            { no: 40, name: "Pengurusan Izin & Administrasi Proyek", company: "PT NPS PLTU AMPANA", date: "05-Oct-25", modal: "5.100.000,00" },
+            { no: 41, name: "Perbaikan Jalan / Akses Kerja", company: "PT NPS PLTU AMPANA", date: "14-Oct-25", modal: "307.000,00" },
+            
+            // RED SECTION - PT PLN Nusantara Power Services
+            { no: 42, name: "Sewa Mobil & Transportasi Operasional", company: "PT PLN Nusantara Power Services", date: "01-Oct-25", modal: "6.529.000,00" },
+            { no: 43, name: "Beban Akomodasi (Hotel / Penginapan)", company: "PT RAIHAN TEHNIK UTAMA", date: "01-Oct-25", modal: "7.200.000,00" },
+            { no: 44, name: "Tagihan Konsumsi Rutin", company: "PT PLN Nusantara Power Services", date: "01-Oct-25", modal: "900.000,00" },
+            { no: 45, name: "Tagihan Bahan Bakar Minyak (BBM)", company: "PT PLN Nusantara Power Services", date: "02-Oct-25", modal: "400.000,00" },
+            { no: 46, name: "Belanja ATK (Alat Tulis Kantor)", company: "PT PLN Nusantara Power Services", date: "02-Oct-25", modal: "1.200.000,00" },
+            { no: 47, name: "Belanja Kebutuhan Dapur Kantor", company: "PT PLN Nusantara Power Services", date: "02-Oct-25", modal: "400.000,00" },
+            { no: 48, name: "Tunjangan Telekomunikasi / Internet", company: "PT PLN Nusantara Power Services", date: "02-Oct-25", modal: "2.560.000,00" },
+            { no: 49, name: "Biaya Rekrutmen Pekerja Harian", company: "PT PLN Nusantara Power Services", date: "02-Oct-25", modal: "1.470.000,00" },
+            { no: 50, name: "Pembayaran BPJS Tenaga Kerja", company: "PT PLN Nusantara Power Services", date: "03-Oct-25", modal: "2.091.000,00" },
+            { no: 51, name: "Pajak Kendaraan & Iuran Retribusi", company: "PT PLN Nusantara Power Services", date: "03-Oct-25", modal: "15.000.000,00" },
+            { no: 52, name: "Sewa Perangkat Komputer / Laptop", company: "PT PLN Nusantara Power Services", date: "04-Oct-25", modal: "21.350.000,00" },
+            { no: 53, name: "Penggantian Perangkat Keras / Hardware", company: "PT PLN Nusantara Power Services", date: "05-Oct-25", modal: "4.896.000,00" },
+            { no: 54, name: "Pembuatan Laporan Audit Eskternal", company: "PT PLN Nusantara Power Services", date: "06-Oct-25", modal: "2.515.000,00" },
+            { no: 55, name: "Kunjungan & Bantuan Bencana Sosial", company: "PT PLN Nusantara Power Services", date: "07-Oct-25", modal: "2.294.000,00" },
+            { no: 56, name: "Program Corporate Social Responsibility (CSR)", company: "PT PLN Nusantara Power Services", date: "07-Oct-25", modal: "687.000,00" },
+            { no: 57, name: "Pembiayaan Sertifikasi / ISO Tenaga Kerja", company: "PT PLN Nusantara Power Services", date: "07-Oct-25", modal: "687.000,00" },
+            { no: 58, name: "Kunjungan Audit Internal Pekerjaan", company: "PT PLN Nusantara Power Services", date: "07-Oct-25", modal: "1.520.000,00" },
+            { no: 59, name: "Pembelian Mesin Absensi", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.100.000,00" },
+            { no: 60, name: "Pembuatan Portal Keamanan Akses Proyek", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "610.000,00" },
+            { no: 61, name: "Pembuatan Jalur Evakuasi Khusus", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "1.500.000,00" },
+            { no: 62, name: "Instalasi Alat Pemadam Kebakaran Ringan (APAR)", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.200.000,00" },
+            { no: 63, name: "Pergantian Pompa Air / Mesin Air", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.500.000,00" },
+            { no: 64, name: "Inspeksi Kelistrikan Ruang Panel", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.880.000,00" },
+            { no: 65, name: "Penggantian Tangki Solar", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "3.200.000,00" },
+            { no: 66, name: "Tagihan Layanan Asuransi Proyek", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "700.000,00" },
+            { no: 67, name: "Penerapan SMKP Pekerjaan Area", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.650.000,00" },
+            { no: 68, name: "Tunjangan Hari Raya (THR) Pekerja", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "1.000.000,00" },
+            { no: 69, name: "Tagihan Pemeliharaan Gedung Asrama", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "750.000,00" },
+            { no: 70, name: "Pembuatan Sertifikasi Lahan", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "1.310.000,00" },
+            { no: 71, name: "Pengurusan Dokumen AMDAL Dasar", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "1.000.000,00" },
+            { no: 72, name: "Biaya Cek Fisik dan Emisi Mesin", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "200.000,00" },
+            { no: 73, name: "Sewa Peralatan Scaffolding / Perancah", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "600.000,00" },
+            { no: 74, name: "Tagihan Perawatan Mobil Crane", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "400.000,00" },
+            { no: 75, name: "Pembelian Cat Tahan Karat dan Zinc", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "100.000,00" },
+            { no: 76, name: "Pengadaan Lampu Proyek (Floodlight)", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "67.000,00" },
+            { no: 77, name: "Tagihan Internet Jaringan Satelit / V-SAT", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "2.846.000,00" },
+            { no: 78, name: "Biaya Penunjang Transport Udara Perjalanan Dinas", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "288.000,00" },
+            { no: 79, name: "Penerbitan Surat Jalan / Dokumen Resmi", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "10.700.000,00" },
+            { no: 80, name: "Pembelian Perlengkapan Cuci Kendaraan (Washer)", company: "PT PLN Nusantara Power Services", date: "08-Oct-25", modal: "8.083.000,00" },
+            
+            // Post-Red rows
+            { no: 81, name: "Dukungan Medis Darurat Lapangan", company: "PT DELAPAN PINTU UTAMA", date: "10-Oct-25", modal: "2.550.000,00" },
+            { no: 82, name: "Pembayaran Konsultan Teknis", company: "PT PLN Nusantara Power Services", date: "16-Oct-25", modal: "2.224.000,00" },
+            { no: 83, name: "Pembelian Software Original (Lisensi)", company: "PT PLN Nusantara Power Services", date: "05-Nov-25", modal: "5.000.000,00" },
+            { no: 84, name: "Pembuatan Material Fabrikasi Ringan", company: "PT PLN Nusantara Power Services", date: "06-Nov-25", modal: "10.700.000,00" },
+            { no: 85, name: "Pemeliharaan Generator Backup Office", company: "PT YK / PT YEKA", date: "09-Nov-25", modal: "250.000,00" },
+            { no: 86, name: "Jasa Pembersihan Tangki Kapasitas Besar", company: "PT PLN Nusantara Power Services", date: "13-Nov-25", modal: "750.000,00" },
+            { no: 87, name: "Paket Pengadaan Jasa Desain Grafis Proyek", company: "PT PLN Nusantara Power Services", date: "14-Nov-25", modal: "28.400.000,00" },
+            
+            // Yellow Rows
+            { no: 88, name: "Penyesuaian Skema Retensi Dana Kerja", company: "PT RAIHAN TEHNIK UTAMA", date: "21-Nov-25", modal: "1.200.000,00" },
+            { no: 89, name: "Sewa Peralatan Angkat Ringan (Forklift)", company: "PT PLN Nusantara Power Services", date: "26-Nov-25", modal: "750.000,00" },
+            { no: 90, name: "Pengadaan Alat Pelindung Pernapasan Ekstra", company: "PT PLN Nusantara Power Services", date: "04-Dec-25", modal: "750.000,00" },
+            { no: 91, name: "Biaya Rapat Kordinasi Lintas Sektoral", company: "PT YEKA", date: "07-Dec-25", modal: "150.000,00" },
+
+            // Final Rows 
+            { no: 92, name: "Instalasi Rak Arsip Kantor Proyek", company: "PT PLN Nusantara Power Services", date: "09-Dec-25", modal: "750.000,00" },
+            { no: 93, name: "Pembuatan Label Aset Inventaris", company: "PT PLN Nusantara Power Services", date: "09-Dec-25", modal: "4.000.000,00" },
+            { no: 94, name: "Penggandaan Rencana Mutu Konstruksi", company: "PT PLN Nusantara Power Services", date: "11-Dec-25", modal: "43.900.000,00" },
+            { no: 95, name: "Penyusunan Jadwal Induk (Master Schedule)", company: "PT PLN Nusantara Power Services", date: "15-Dec-25", modal: "1.000.000,00" },
+            { no: 96, name: "Pembelian Perangkat Komunikasi (HT/Radio)", company: "PT YEKA", date: "16-Dec-25", modal: "1.000.000,00" },
+            { no: 97, name: "Perbaikan Kamera Keamanan (CCTV)", company: "PT PLN Nusantara Power Services", date: "17-Dec-25", modal: "2.351.000,00" },
+            { no: 98, name: "Pembelian Sensor Gas Detektor", company: "PT PLN Nusantara Power Services", date: "18-Dec-25", modal: "1.000.000,00" },
+            { no: 99, name: "Langganan Penyimpanan Data Cloud Server", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "1.450.000,00" },
+            { no: 100, name: "Modifikasi Kontainer Pekerja (Site Office)", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "2.550.000,00" },
+            { no: 101, name: "Perizinan Papan Iklan Reklame Proyek", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "750.000,00" },
+            { no: 102, name: "Pembelian Banner Keselamatan Kerja", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "2.550.000,00" },
+            { no: 103, name: "Jasa Dokumentasi Drone Udara Lapangan", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "2.126.000,00" },
+            { no: 104, name: "Testing Validasi Kualitas Air", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "1.750.000,00" },
+            { no: 105, name: "Testing Kekuatan Tanah Konstruksi (Sondir)", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "775.000,00" },
+            { no: 106, name: "Pembuatan Pintu Garasi Akses Otomatis", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "1.257.000,00" },
+            { no: 107, name: "Perbaikan Sistem Hydrant Gedung Utama", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "750.000,00" },
+            { no: 108, name: "Penggantian Tabung Oksigen Las", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            { no: 109, name: "Pengadaan Alat Kebersihan Berat (Sweeper)", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            { no: 110, name: "Pembayaran Pemeliharaan Jaringan WiFi Proyek", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "1.750.000,00" },
+            { no: 111, name: "Tagihan Katering Staf Bulanan Akhir Tahun", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            { no: 112, name: "Audit Keuangan Tutup Buku", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "750.000,00" },
+            { no: 113, name: "Penambahan Modal Kerja Ekstra Tahun Depan", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            { no: 114, name: "Kunjungan Komisaris Verifikasi Proyek", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            { no: 115, name: "Pengadaan Rapat Syukuran Tutup Proyek Tahunan", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "1.750.000,00" },
+            { no: 116, name: "Retribusi dan Biaya Akhir Restitusi", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "750.000,00" },
+            { no: 117, name: "Penyusunan Rencana Kinerja Tahun Berjalan (Review)", company: "PT PLN Nusantara Power Services", date: "24-Dec-25", modal: "208.000,00" },
+            
+            // Green Rows
+            { no: 118, name: "Distribusi Pembagian Deviden Laba Kotor 2025", company: "PT PLN Nusantara Power Services", date: "31-Dec-25", modal: "2.080.000,00" },
+            { no: 119, name: "Total Pembukuan dan Penutupan Akun", company: "PT PLN Nusantara Power Services", date: "31-Dec-25", modal: "21.490.000,00" }
+        ];
+
+        let filteredData = [...jobData];
+        let currentPage = 1;
+        let rowsPerPage = 10; // Variable dependent on select
+
+        const tableBody = document.getElementById('job-table-body');
+        const searchInput = document.getElementById('job-search');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const tableInfo = document.getElementById('table-info');
+        const rowsPerPageSelect = document.getElementById('rows-per-page');
+
+        function renderTable() {
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            // Calculate slice
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = startIndex + rowsPerPage;
+            const paginatedItems = filteredData.slice(startIndex, endIndex);
+
+            if (paginatedItems.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="px-6 py-8 text-center text-slate-500 italic">Tidak ada data pekerjaan yang ditemukan.</td></tr>`;
+            } else {
+                paginatedItems.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition-colors cursor-default";
+                    tr.innerHTML = `
+                        <td class="px-6 py-4 font-bold text-slate-400">${item.no}</td>
+                        <td class="px-6 py-4 font-medium text-slate-800">${item.name}</td>
+                        <td class="px-6 py-4"><span class="px-3 py-1 bg-cyan-50 text-cyan-800 border border-cyan-100 rounded-full text-xs font-bold">${item.company}</span></td>
+                        <td class="px-6 py-4 text-center text-slate-500 text-sm">${item.date}</td>
+                        <td class="px-6 py-4 text-right font-mono font-medium text-slate-700">Rp ${item.modal}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            }
+
+            updatePagination();
+            // Re-bind lucide icons if there were any generated inside
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredData.length / rowsPerPage) || 1;
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+
+            const startCount = filteredData.length === 0 ? 0 : ((currentPage - 1) * rowsPerPage) + 1;
+            const endCount = Math.min(currentPage * rowsPerPage, filteredData.length);
+            
+            tableInfo.innerText = `Menampilkan ${startCount}-${endCount} dari ${filteredData.length} data`;
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const keyword = e.target.value.toLowerCase();
+                filteredData = jobData.filter(item => 
+                    item.name.toLowerCase().includes(keyword) || 
+                    item.company.toLowerCase().includes(keyword)
+                );
+                currentPage = 1;
+                renderTable();
+            });
+        }
+
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+        }
+
+        if (rowsPerPageSelect) {
+            rowsPerPageSelect.addEventListener('change', (e) => {
+                const val = e.target.value;
+                if (val === 'all') {
+                    rowsPerPage = jobData.length;
+                } else {
+                    rowsPerPage = parseInt(val, 10);
+                }
+                currentPage = 1;
+                renderTable();
+            });
+        }
+
+        // Initial Render
+        renderTable();
+        
+    </script>
+</body>
+</html>
