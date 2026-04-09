@@ -745,7 +745,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initial Load
+    // Cegah browser otomatis scroll ke bawah jika di-refresh (override)
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
     setLanguage('id');
+
+    // Default selalu paksa ke Beranda saat pertama kali dibuka, sesuai permintaan
+    if (window.location.hash !== '#beranda') {
+        history.replaceState(null, null, window.location.pathname + '#beranda');
+    }
     showPage('beranda');
 
 });
