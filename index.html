@@ -6,33 +6,1293 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PT. DAYA KARYA ENERGI</title>
   <meta name="description" content="Kontraktor Umum, Energi, dan Perdagangan Besar terpercaya di Sulawesi Tengah." />
+  <link rel="icon" type="image/png" href="./assets/brand-logo-CeFxVA4j.png" />
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-    body {
-      font-family: 'Inter', sans-serif;
-      scroll-behavior: smooth;
-    }
-  </style>
+  <!-- Custom Styles -->
 
-
-  <script type="importmap">
-{
-  "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@^0.561.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
-  }
-}
-</script>
-  <script type="module" crossorigin src="./assets/index-Bvqb8Sh6.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-9FSQWF30.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CA0PNejy.css">
 </head>
 
-<body>
-  <div id="root"></div>
+<body class="bg-gray-50 text-gray-800 font-sans relative">
+  <!-- Ambient Light Background (Overlay Mode) -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <canvas id="particleCanvas" class="w-full h-full opacity-30"></canvas>
+  </div>
+
+  <!-- Main Content Wrapper (z-10 relative) -->
+  <div class="relative z-10">
+
+    <!-- Top Bar (Corporate Info) -->
+    <div class="top-bar py-2 hidden md:block relative z-[60]">
+      <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
+        <div class="flex items-center gap-6">
+
+
+        </div>
+        <div class="flex items-center gap-4 text-xs font-bold tracking-wider">
+          <a href="#" class="hover:text-white dev-pending">CAREERS</a>
+          <span class="text-gray-600">|</span>
+          <a href="#" class="hover:text-white dev-pending">INVESTOR RELATIONS</a>
+          <span class="text-gray-600">|</span>
+          <a href="#" class="text-white dev-pending">ID</a>
+          <a href="#" class="text-gray-500 hover:text-white dev-pending">EN</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corporate Navigation (Fixed White/Transparent) -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300">
+      <div class="container mx-auto px-4 md:px-8 flex justify-between items-center py-2 md:py-1">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2">
+          <img src="./assets/logo-v2-BP6qvwlZ.png" alt="Daya Karya Energy Logo"
+            class="h-12 md:h-16 w-auto object-contain transform scale-125 md:scale-[1.75] origin-left ml-2 md:ml-8" />
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#beranda" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide"
+            data-i18n="nav.home">Beranda</a>
+          <a href="#tentang-kami" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide"
+            data-i18n="nav.about">Tentang Kami</a>
+          <a href="#layanan" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide"
+            data-i18n="nav.services">Layanan</a>
+          <a href="#proyek" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide"
+            data-i18n="nav.projects">Proyek</a>
+          <a href="kinerja.html" class="text-sm font-bold text-red-600 hover:text-red-800 uppercase tracking-wide">Kinerja</a>
+          <a href="#kontak" class="text-sm font-bold text-gray-800 hover:text-red-600 uppercase tracking-wide"
+            data-i18n="nav.contact">Kontak</a>
+
+          <!-- Language Panel (Desktop) -->
+          <div class="flex items-center border border-gray-300 rounded-md overflow-hidden">
+            <a href="#" data-lang="id"
+              class="px-3 py-1 bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition-colors">ID</a>
+            <a href="#" data-lang="en"
+              class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold hover:bg-gray-200 transition-colors">EN</a>
+          </div>
+        </div>
+
+        <!-- Mobile Controls Group (Right Aligned) -->
+        <div class="md:hidden flex items-center gap-3">
+          <!-- Mobile Language Toggle -->
+          <div class="flex items-center gap-2">
+            <a href="#" data-lang="id" class="px-2 py-1 bg-red-600 text-white text-xs font-bold rounded">ID</a>
+            <a href="#" data-lang="en"
+              class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded hover:bg-gray-200">EN</a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="mobile-menu-btn" class="text-gray-800 p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu"
+        class="hidden absolute top-20 left-0 w-full bg-white border-t border-gray-100 shadow-xl flex flex-col p-4 space-y-4 md:hidden">
+        <a href="#beranda" class="text-lg font-bold text-gray-900">Beranda</a>
+        <a href="#tentang-kami" class="text-lg font-bold text-gray-900">Tentang Kami</a>
+        <a href="#layanan" class="text-lg font-bold text-gray-900">Layanan</a>
+        <a href="#proyek" class="text-lg font-bold text-gray-900">Proyek</a>
+        <a href="kinerja.html" class="text-lg font-bold text-red-600">Kinerja</a>
+        <a href="#kontak" class="text-lg font-bold text-gray-900">Kontak</a>
+
+
+      </div>
+    </nav>
+
+    <!-- Corporate Hero Section -->
+    <section id="beranda" class="relative h-[600px] flex items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="./assets/hero-bg-HE0ep36n.jpg" alt="Construction Site"
+          class="w-full h-full object-cover animate-ken-burns" />
+        <!-- Dark overlay for text readability -->
+        <div class="absolute inset-0 bg-black/40"></div>
+      </div>
+
+      <div class="container mx-auto px-4 md:px-8 relative z-10 text-white">
+        <div class="max-w-4xl">
+          <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-slide-up" data-i18n="hero.title">
+            Reliable Energy & <br /> <span class="text-red-500">Infrastructure Partner</span>
+          </h1>
+          <div class="h-1 w-24 bg-red-600 mb-6"></div>
+          <p class="text-xl md:text-2xl text-gray-100 mb-8 max-w-2xl font-light" data-i18n="hero.subtitle">
+            Membangun masa depan Sulawesi Tengah dengan integritas, kualitas, dan profesionalisme berkelanjutan.
+          </p>
+          <a href="#tentang-kami"
+            class="inline-block bg-transparent border-2 border-white text-white px-8 py-3 font-bold hover:bg-white hover:text-blue-900 transition-all uppercase tracking-wider"
+            data-i18n="hero.cta">
+            Pelajari Lebih Lanjut
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Performance Strip (Ticker Style) -->
+    <div class="stat-ticker py-6">
+      <div
+        class="container mx-auto px-4 md:px-8 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left">
+        <div>
+          <span class="block text-3xl font-bold">1+</span>
+          <span class="text-xs uppercase opacity-80" data-i18n="stat.exp">Tahun Pengalaman</span>
+        </div>
+        <div>
+          <span class="block text-3xl font-bold">50+</span>
+          <span class="text-xs uppercase opacity-80" data-i18n="stat.proj">Proyek Selesai</span>
+        </div>
+        <div>
+          <span class="block text-3xl font-bold">100%</span>
+          <span class="text-xs uppercase opacity-80" data-i18n="stat.client">Klien Puas</span>
+        </div>
+        <div class="hidden md:block h-8 w-px bg-white/20"></div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="trending-up" class="w-6 h-6 text-green-400"></i>
+          <span class="font-bold tracking-wide" data-i18n="stat.growth">PERTUMBUHAN BERKELANAJUTAN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- About Section (Corporate Style) -->
+    <section id="tentang-kami" class="py-24 bg-white border-b border-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row items-start gap-16">
+          <!-- Content -->
+          <div class="md:w-1/2">
+            <h2 class="section-strip-title text-3xl font-bold text-gray-900 mb-6" data-i18n="about.title">Tentang
+              Perusahaan</h2>
+            <p class="text-xl text-gray-800 leading-relaxed mb-6 font-light" data-i18n="about.desc1">
+              <span class="font-bold">PT. DAYA KARYA ENERGI</span> hadir untuk menjawab tantangan pembangunan
+              infrastruktur dan kebutuhan energi di Indonesia, khususnya di wilayah Sulawesi Tengah.
+            </p>
+            <div class="space-y-4 text-gray-600 leading-relaxed mb-8">
+              <p data-i18n="about.desc2">
+                Didirikan berdasarkan Akta Notaris No. 31 Tahun 2025, kami bergerak dengan landasan hukum yang kuat dan
+                manajemen profesional. Kami berdedikasi untuk memberikan solusi terbaik di bidang konstruksi bangunan
+                sipil, kelistrikan, dan perdagangan umum.
+              </p>
+              <p data-i18n="about.desc3">
+                Integritas, Kualitas, dan Profesionalisme adalah nilai inti yang kami pegang teguh dalam setiap proyek
+                yang kami kerjakan.
+              </p>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="bg-blue-50 p-4 border-l-4 border-blue-900 w-full">
+                <span class="block text-xs uppercase tracking-widest text-gray-500 mb-1"
+                  data-i18n="about.director">Direktur Utama</span>
+                <span class="block font-bold text-gray-900">TN. ABDUL RAHMAN</span>
+              </div>
+              <div class="bg-blue-50 p-4 border-l-4 border-red-600 w-full">
+                <span class="block text-xs uppercase tracking-widest text-gray-500 mb-1"
+                  data-i18n="about.commish">Komisaris</span>
+                <span class="block font-bold text-gray-900">TN. ABD. RAHMAN MALOTOLO</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="md:w-1/2 relative mt-8 md:mt-0">
+            <div class="bg-gray-900 p-2"> <!-- Frame effect -->
+              <!-- Carousel in Frame -->
+              <div class="relative w-full h-64 md:h-96 group overflow-hidden">
+                <!-- Added explicit height h-96 for stability -->
+                <!-- Slider Track -->
+                <div id="activityCarousel" class="flex h-full transition-transform duration-700 ease-in-out">
+                  <!-- Slide 1 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-1-YKPiw8lr.jpg" alt="Activity 1" class="w-full h-full object-cover">
+                  </div>
+                  <!-- Slide 2 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-2-l5ROKiEc.jpg" alt="Activity 2" class="w-full h-full object-cover">
+                  </div>
+                  <!-- Slide 3 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-3-CLLnQgDW.jpg" alt="Activity 3" class="w-full h-full object-cover">
+                  </div>
+                  <!-- Slide 4 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-4-7asF_F-A.jpg" alt="Activity 4" class="w-full h-full object-cover">
+                  </div>
+                  <!-- Slide 5 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-5-BQr9iEWB.jpg" alt="Activity 5" class="w-full h-full object-cover">
+                  </div>
+                  <!-- Slide 6 -->
+                  <div class="w-full flex-shrink-0 relative h-full">
+                    <img src="./assets/activity-6-Dvvj52lD.jpg" alt="Activity 6" class="w-full h-full object-cover">
+                  </div>
+                </div>
+
+                <!-- Navigation Buttons (Overlay) -->
+                <button id="prevBtn"
+                  class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button id="nextBtn"
+                  class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
+
+                <!-- Overlay Caption -->
+                <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p class="text-white text-sm text-center italic" data-i18n="about.activity_caption">
+                    Kegiatan kordinasi dengan dinas dan pengesahan notaris
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- Decorative box -->
+            <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-red-600 -z-10"></div>
+          </div>
+        </div>
+
+        <!-- Detailed Company Profile (New Expansion) -->
+        <div class="mt-20 max-w-5xl mx-auto space-y-20">
+
+          <!-- Vision & Role -->
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="about.vision.title">Visi dan Peran Perusahaan
+            </h3>
+            <p class="text-gray-700 leading-relaxed max-w-3xl mx-auto" data-i18n="about.vision.desc">
+              Kami memposisikan diri sebagai perusahaan yang tidak hanya berfokus pada penyediaan layanan, tetapi juga
+              berperan aktif dalam mendukung pembangunan berkelanjutan, peningkatan konektivitas infrastruktur, serta
+              ketersediaan energi yang andal dan efisien. Dengan memadukan sumber daya manusia yang kompeten, sistem
+              kerja yang terstruktur, serta pemahaman yang baik terhadap kebutuhan lapangan, PT. Daya Karya Energi
+              berupaya memberikan solusi yang tepat guna, bernilai tambah, dan berorientasi jangka panjang.
+            </p>
+          </div>
+
+          <!-- Scope & Competency -->
+          <div class="bg-blue-50 rounded-2xl p-8 md:p-12">
+            <h3 class="text-2xl font-bold text-blue-900 mb-8 text-center" data-i18n="about.scope.title">Lingkup Usaha
+              dan Kompetensi</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="flex items-start gap-3">
+                <i data-lucide="hard-hat" class="w-6 h-6 text-red-600 shrink-0 mt-1"></i>
+                <p class="text-gray-700" data-i18n="about.scope.l1">Konstruksi bangunan sipil, termasuk pekerjaan jalan,
+                  jembatan, dan infrastruktur pendukung lainnya</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <i data-lucide="zap" class="w-6 h-6 text-yellow-500 shrink-0 mt-1"></i>
+                <p class="text-gray-700" data-i18n="about.scope.l2">Energi dan kelistrikan, khususnya penyediaan tenaga
+                  pendukung operasional serta kegiatan penunjang sistem</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <i data-lucide="package" class="w-6 h-6 text-blue-600 shrink-0 mt-1"></i>
+                <p class="text-gray-700" data-i18n="about.scope.l3">Perdagangan besar, mencakup material, peralatan,
+                  mesin, dan perlengkapan industri</p>
+              </div>
+              <div class="flex items-start gap-3">
+                <i data-lucide="truck" class="w-6 h-6 text-purple-600 shrink-0 mt-1"></i>
+                <p class="text-gray-700" data-i18n="about.scope.l4">Logistik dan jasa pendukung transportasi, termasuk
+                  penanganan barang dan distribusi</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Values (3 Cards) -->
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-10 text-center" data-i18n="about.values.title">Nilai-Nilai
+              Perusahaan</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Integrity -->
+              <div
+                class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-900 hover:-translate-y-2 transition-transform">
+                <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <i data-lucide="shield-check" class="w-8 h-8 text-blue-900"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-3 text-center" data-i18n="about.val1.title">Integritas
+                </h4>
+                <p class="text-gray-600 text-center text-sm" data-i18n="about.val1.desc">Menjalankan usaha dengan
+                  kejujuran, etika, dan tanggung jawab penuh.</p>
+              </div>
+
+              <!-- Quality -->
+              <div
+                class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-red-600 hover:-translate-y-2 transition-transform">
+                <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <i data-lucide="award" class="w-8 h-8 text-red-600"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-3 text-center" data-i18n="about.val2.title">Kualitas</h4>
+                <p class="text-gray-600 text-center text-sm" data-i18n="about.val2.desc">Mengutamakan mutu layanan dan
+                  hasil kerja yang memenuhi standar tinggi.</p>
+              </div>
+
+              <!-- Professionalism -->
+              <div
+                class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-yellow-500 hover:-translate-y-2 transition-transform">
+                <div class="w-14 h-14 bg-yellow-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <i data-lucide="briefcase" class="w-8 h-8 text-yellow-600"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-900 mb-3 text-center" data-i18n="about.val3.title">
+                  Profesionalisme
+                </h4>
+                <p class="text-gray-600 text-center text-sm" data-i18n="about.val3.desc">Bekerja secara disiplin,
+                  kompeten, dan selalu berorientasi pada solusi.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Management & Governance -->
+          <div class="border-l-4 border-gray-200 pl-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4" data-i18n="about.gov.title">Manajemen dan Tata Kelola
+            </h3>
+            <p class="text-gray-600 leading-relaxed mb-4" data-i18n="about.gov.p1">
+              Perseroan dikelola oleh jajaran manajemen yang memiliki komitmen kuat terhadap tata kelola perusahaan yang
+              baik (Good Corporate Governance). Dengan struktur organisasi yang jelas dan sistem pengambilan keputusan
+              yang terukur, kami memastikan setiap kegiatan usaha berjalan secara efektif dan akuntabel.
+            </p>
+            <p class="text-gray-600 leading-relaxed" data-i18n="about.gov.p2">
+              Manajemen PT. Daya Karya Energi berkomitmen untuk terus meningkatkan kapasitas perusahaan, baik dari sisi
+              sumber daya manusia, sistem operasional, maupun pengembangan usaha, guna menjawab tantangan industri yang
+              terus berkembang.
+            </p>
+          </div>
+
+          <!-- Closing Statement -->
+          <div class="text-center border-t border-gray-100 pt-12">
+            <p class="text-xl text-gray-800 font-medium italic max-w-4xl mx-auto" data-i18n="about.closing">
+              "Kami percaya bahwa kerja sama yang baik, komunikasi yang terbuka, dan kepercayaan yang terbangun akan
+              menjadi kunci keberhasilan bersama."
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- Organizational Structure Section -->
+    <section id="struktur" class="py-20 bg-white border-t border-gray-100">
+      <div class="container mx-auto px-4 md:px-8 text-center">
+        <h2 class="section-strip-title text-3xl font-bold text-gray-900 mb-12 inline-block" data-i18n="structure.title">
+          Struktur
+          Organisasi</h2>
+
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-4 md:p-8">
+          <img src="./assets/structure-Cw_W5gKb.png" alt="Struktur Organisasi PT DKE"
+            class="w-full h-auto object-contain hover:scale-[1.02] transition-transform duration-500">
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificate & Credibility Section -->
+    <section id="sertifikat" class="py-24 bg-gray-50 border-t border-gray-100">
+      <div class="container mx-auto px-4 md:px-8">
+        <div class="text-center mb-16">
+          <h2 class="section-strip-title text-3xl font-bold text-gray-900 mb-4 inline-block" data-i18n="cert.title">
+            Legalitas & Sertifikasi</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto" data-i18n="cert.desc">
+            Komitmen kami terhadap keselamatan kerja dan kepatuhan regulasi dibuktikan dengan berbagai sertifikasi
+            resmi.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <!-- Cert 1 -->
+          <div class="bg-white p-6 rounded-xl shadow-lg hover:-translate-y-2 transition-transform duration-300">
+            <div class="relative aspect-[1.41] w-full overflow-hidden rounded-lg mb-6 border border-gray-100">
+              <img src="./assets/certificate-1-D6Vg12nO.png" alt="Sertifikat CSMS PLN"
+                class="w-full h-full object-contain hover:scale-105 transition-transform duration-500">
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">CSMS Contractor Safety Management System</h3>
+            <p class="text-gray-500 text-sm">Diterbitkan oleh PT PLN Nusantara Power - Kategori Risiko Rendah</p>
+          </div>
+
+          <!-- Cert 2 -->
+          <div class="bg-white p-6 rounded-xl shadow-lg hover:-translate-y-2 transition-transform duration-300">
+            <div class="relative aspect-[1.41] w-full overflow-hidden rounded-lg mb-6 border border-gray-100">
+              <img src="./assets/certificate-2-yjj33P1-.png" alt="Surat Keterangan CSMS"
+                class="w-full h-full object-contain hover:scale-105 transition-transform duration-500">
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Surat Keterangan Lulus Prakualifikasi</h3>
+            <p class="text-gray-500 text-sm">Bukti kelayakan operasional dan pemenuhan standar keselamatan kerja</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Image-Based Services Section -->
+    <section id="layanan" class="py-24 bg-white">
+      <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+          <div>
+            <h2 class="section-strip-title text-3xl md:text-4xl font-bold text-gray-900 mb-2"
+              data-i18n="services.title">
+              Bidang Usaha Kami</h2>
+            <p class="text-gray-500 ml-4 max-w-xl" data-i18n="services.subtitle">Solusi terintegrasi untuk kebutuhan
+              infrastruktur, energi, dan
+              logistik.</p>
+          </div>
+          <a href="#kontak"
+            class="hidden md:inline-block text-red-600 font-bold hover:text-red-800 transition-colors">Lihat Katalog
+            Lengkap &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0">
+          <!-- Service 1 -->
+          <div class="corp-card group">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop"
+              alt="Konstruksi">
+            <div class="corp-card-content">
+              <h3 class="text-xl font-bold mb-1" data-i18n="services.c1.title">Konstruksi Sipil</h3>
+              <p class="text-xs text-gray-300" data-i18n="services.c1.desc">Jalan, Jembatan & Air</p>
+            </div>
+          </div>
+
+          <!-- Service 2 -->
+          <div class="corp-card group">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
+              alt="Energi">
+            <div class="corp-card-content">
+              <h3 class="text-xl font-bold mb-1" data-i18n="services.c2.title">Energi & Listrik</h3>
+              <p class="text-xs text-gray-300" data-i18n="services.c2.desc">Pembangkit & Transmisi</p>
+            </div>
+          </div>
+
+          <!-- Service 3 -->
+          <div class="corp-card group">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
+              alt="Perdagangan">
+            <div class="corp-card-content">
+              <h3 class="text-xl font-bold mb-1" data-i18n="services.c3.title">Perdagangan Besar</h3>
+              <p class="text-xs text-gray-300" data-i18n="services.c3.desc">Material & Peralatan</p>
+            </div>
+          </div>
+
+          <!-- Service 4 -->
+          <div class="corp-card group">
+            <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop"
+              alt="Logistik">
+            <div class="corp-card-content">
+              <h3 class="text-xl font-bold mb-1" data-i18n="services.c4.title">Logistik</h3>
+              <p class="text-xs text-gray-300" data-i18n="services.c4.desc">Transportasi & Kargo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailed Services Description (New) -->
+        <div class="mt-20 max-w-6xl mx-auto space-y-16">
+
+          <!-- Intro -->
+          <div class="text-center max-w-4xl mx-auto">
+            <div class="w-16 h-1 bg-red-600 mx-auto mb-6"></div>
+            <p class="text-gray-700 leading-relaxed mb-6" data-i18n="services.detail.intro1">
+              Sebagai perusahaan yang didirikan untuk mendukung pembangunan nasional dan pertumbuhan sektor industri,
+              PT
+              Daya Karya Energi menjalankan kegiatan usaha yang terintegrasi di bidang konstruksi, energi dan
+              kelistrikan, perdagangan besar, serta logistik dan transportasi. Seluruh kegiatan usaha kami dijalankan
+              berdasarkan Anggaran Dasar Perseroan dan mengacu pada peraturan perundang-undangan yang berlaku.
+            </p>
+            <p class="text-gray-700 leading-relaxed font-semibold italic text-blue-900"
+              data-i18n="services.detail.intro2">
+              Dengan mengedepankan prinsip profesionalisme, kepatuhan hukum, keselamatan kerja, serta efisiensi
+              operasional, kami berkomitmen untuk menjadi mitra kerja yang andal dan berkelanjutan bagi pemerintah,
+              BUMN, swasta nasional, maupun mitra usaha lainnya.
+            </p>
+          </div>
+
+          <!-- 4 Pillars Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- Pillar 1: Construction -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+                  <i data-lucide="hard-hat" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" data-i18n="services.detail.p1.title">Konstruksi Sipi</h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" data-i18n="services.detail.p1.desc">
+                Perseroan menjalankan kegiatan di bidang konstruksi bangunan sipil, yang meliputi pekerjaan konstruksi
+                jalan dan jembatan, bangunan sumber daya air, jaringan irigasi dan drainase, serta pekerjaan
+                konstruksi
+                sipil lainnya.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p1.list1">Penyediaan tenaga pendukung operasional proyek</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p1.list2">Pengelolaan dan penyediaan material konstruksi</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p1.list3">Pekerjaan persiapan dan penyelesaian lahan</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Pillar 2: Energy -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                  <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" data-i18n="services.detail.p2.title">Energi & Kelistrikan
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" data-i18n="services.detail.p2.desc">
+                Dalam mendukung kebutuhan energi nasional, Perseroan bergerak di bidang penyediaan dan penunjang
+                tenaga
+                listrik, yang mencakup kegiatan pendukung pembangkitan, transmisi, dan distribusi.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p2.list1">Penyediaan tenaga pendukung operasional
+                    kelistrikan</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p2.list2">Kegiatan penunjang teknis dan non-teknis sistem</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p2.list3">Dukungan operasional jaringan dan fasilitas</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Pillar 3: Wholesale -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                  <i data-lucide="package" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" data-i18n="services.detail.p3.title">Perdagangan Besar
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" data-i18n="services.detail.p3.desc">
+                Perseroan menjalankan kegiatan perdagangan besar untuk berbagai jenis barang dan perlengkapan yang
+                mendukung kegiatan industri, konstruksi, energi, dan kebutuhan operasional lainnya.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p3.list1">Bahan dan perlengkapan bangunan</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p3.list2">Mesin, peralatan, dan suku cadang</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p3.list3">Barang keperluan industri dan rumah tangga</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Pillar 4: Logistics -->
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg transition-shadow">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                  <i data-lucide="truck" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900" data-i18n="services.detail.p4.title">Logistik & Transpor
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-6 leading-relaxed" data-i18n="services.detail.p4.desc">
+                Untuk mendukung rantai pasok dan kelancaran distribusi, Perseroan menjalankan kegiatan di bidang
+                logistik dan transportasi, termasuk aktivitas penunjang angkutan darat.
+              </p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p4.list1">Penanganan dan pengelolaan kargo</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p4.list2">Aktivitas bongkar muat dan pergudangan</span>
+                </li>
+                <li class="flex items-start gap-3 text-gray-700">
+                  <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500 shrink-0 mt-0.5"></i>
+                  <span data-i18n="services.detail.p4.list3">Jasa penunjang distribusi multimoda</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Outro / Principles -->
+          <div class="bg-blue-900 rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+              <i data-lucide="shield" class="w-full h-full"></i>
+            </div>
+            <div class="relative z-10">
+              <h3 class="text-2xl font-bold mb-6" data-i18n="services.detail.outro.title">Pendekatan Terintegrasi</h3>
+              <p class="text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed" data-i18n="services.detail.outro.desc">
+                Keunggulan Perseroan terletak pada pendekatan usaha yang terintegrasi, di mana setiap bidang usaha
+                saling
+                mendukung dan memberikan nilai tambah bagi klien. Kami senantiasa menjunjung tinggi prinsip:
+              </p>
+              <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                <div class="flex items-center gap-2 bg-blue-800 px-4 py-2 rounded-full border border-blue-700">
+                  <i data-lucide="shield-check" class="w-5 h-5 text-green-400"></i>
+                  <span class="text-sm font-bold" data-i18n="services.detail.val1">Kepatuhan Regulasi</span>
+                </div>
+                <div class="flex items-center gap-2 bg-blue-800 px-4 py-2 rounded-full border border-blue-700">
+                  <i data-lucide="eye" class="w-5 h-5 text-blue-400"></i>
+                  <span class="text-sm font-bold" data-i18n="services.detail.val2">Transparansi</span>
+                </div>
+                <div class="flex items-center gap-2 bg-blue-800 px-4 py-2 rounded-full border border-blue-700">
+                  <i data-lucide="hard-hat" class="w-5 h-5 text-yellow-400"></i>
+                  <span class="text-sm font-bold" data-i18n="services.detail.val3">Keselamatan Kerja (K3)</span>
+                </div>
+                <div class="flex items-center gap-2 bg-blue-800 px-4 py-2 rounded-full border border-blue-700">
+                  <i data-lucide="leaf" class="w-5 h-5 text-green-400"></i>
+                  <span class="text-sm font-bold" data-i18n="services.detail.val4">Keberlanjutan</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+  </section>
+
+  <!-- Projects Section (Corporate Grid) -->
+  <section id="proyek" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+        <div>
+          <h2 class="section-strip-title text-3xl md:text-4xl font-bold text-gray-900 mb-2" data-i18n="projects.title">
+            Proyek Unggulan</h2>
+          <p class="text-gray-500 ml-4 max-w-xl" data-i18n="projects.subtitle">Portofolio rekam jejak keberhasilan
+            kami
+            di lapangan.</p>
+        </div>
+        <div class="flex gap-2 hidden md:flex">
+          <button
+            class="w-10 h-10 bg-white shadow flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors"><i
+              data-lucide="chevron-left" class="w-5 h-5"></i></button>
+          <button
+            class="w-10 h-10 bg-white shadow flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors"><i
+              data-lucide="chevron-right" class="w-5 h-5"></i></button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Project 1 -->
+        <div class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/project-1-mOh3fOKm.jpg" alt="Project 1"
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute top-4 right-4 bg-red-600 text-white text-xs font-bold px-3 py-1 uppercase">Sipil
+            </div>
+          </div>
+          <div class="p-6 border-b-4 border-transparent group-hover:border-red-600 transition-colors">
+            <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="projects.p1.title">Peningkatan Jalan Raya
+              Trans
+              Sulawesi</h3>
+            <p class="text-gray-500 text-sm mb-4" data-i18n="projects.p1.desc">Pengaspalan dan pelebaran jalan utama
+              untuk akses logistik yang lebih
+              baik.</p>
+            <a href="#" class="inline-block text-xs font-bold text-blue-900 uppercase tracking-wider hover:underline"
+              data-i18n="projects.view">Lihat
+              Detail</a>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=2070&auto=format&fit=crop"
+              alt="Project 2"
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute top-4 right-4 bg-blue-900 text-white text-xs font-bold px-3 py-1 uppercase">Energi
+            </div>
+          </div>
+          <div class="p-6 border-b-4 border-transparent group-hover:border-blue-900 transition-colors">
+            <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="projects.p2.title">Instalasi Gardu Induk &
+              Transmisi</h3>
+            <p class="text-gray-500 text-sm mb-4" data-i18n="projects.p2.desc">Pembangunan infrastruktur kelistrikan
+              untuk mendukung pasokan energi
+              daerah.</p>
+            <a href="#" class="inline-block text-xs font-bold text-blue-900 uppercase tracking-wider hover:underline"
+              data-i18n="projects.view">Lihat
+              Detail</a>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="group bg-white shadow-sm hover:shadow-xl transition-shadow duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2070&auto=format&fit=crop"
+              alt="Project 3"
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+            <div class="absolute top-4 right-4 bg-gray-800 text-white text-xs font-bold px-3 py-1 uppercase">
+              Konstruksi
+            </div>
+          </div>
+          <div class="p-6 border-b-4 border-transparent group-hover:border-gray-800 transition-colors">
+            <h3 class="text-lg font-bold text-gray-900 mb-2" data-i18n="projects.p3.title">Pembangunan Gedung
+              Perkantoran</h3>
+            <p class="text-gray-500 text-sm mb-4" data-i18n="projects.p3.desc">Konstruksi gedung bertingkat dengan
+              standar keselamatan modern.</p>
+            <a href="#" class="inline-block text-xs font-bold text-blue-900 uppercase tracking-wider hover:underline"
+              data-i18n="projects.view">Lihat
+              Detail</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Project Description (New Expansion) -->
+      <div class="mt-20 max-w-6xl mx-auto space-y-16">
+
+        <!-- Intro -->
+        <div class="text-center max-w-4xl mx-auto">
+          <div class="w-16 h-1 bg-red-600 mx-auto mb-6"></div>
+          <p class="text-gray-700 leading-relaxed mb-6" data-i18n="projects.detail.intro1">
+            Sebagai perusahaan yang bergerak di berbagai sektor strategis, PT. Daya Karya Energi telah dan terus
+            menjalankan beragam kegiatan dan proyek yang mendukung pembangunan infrastruktur, penyediaan energi, serta
+            kelancaran rantai pasok dan distribusi. Setiap proyek yang kami kerjakan merupakan cerminan dari komitmen
+            Perseroan terhadap kualitas, keselamatan kerja, ketepatan waktu, dan kepatuhan terhadap regulasi.
+          </p>
+          <p class="text-gray-700 leading-relaxed font-semibold italic text-blue-900"
+            data-i18n="projects.detail.intro2">
+            Portofolio proyek kami mencakup pekerjaan di bidang konstruksi sipil, energi dan kelistrikan, perdagangan
+            besar material dan peralatan, serta jasa pendukung logistik dan transportasi.
+          </p>
+        </div>
+
+        <!-- Project Categories Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Category 1: Civil -->
+          <div
+            class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110">
+            </div>
+            <div class="relative z-10">
+              <div class="w-12 h-12 bg-red-100 text-red-600 rounded-lg flex items-center justify-center mb-6">
+                <i data-lucide="hard-hat" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n="projects.cat1.title">Proyek Konstruksi Sipil
+              </h3>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-red-500 mt-1"></i>
+                  <span data-i18n="projects.cat1.l1">Konstruksi dan peningkatan jalan serta jembatan</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-red-500 mt-1"></i>
+                  <span data-i18n="projects.cat1.l2">Pekerjaan bangunan sipil penunjang</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-red-500 mt-1"></i>
+                  <span data-i18n="projects.cat1.l3">Penyediaan tenaga pendukung operasional</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Category 2: Energy -->
+          <div
+            class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-yellow-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110">
+            </div>
+            <div class="relative z-10">
+              <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center mb-6">
+                <i data-lucide="zap" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n="projects.cat2.title">Proyek Energi &
+                Kelistrikan</h3>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-yellow-500 mt-1"></i>
+                  <span data-i18n="projects.cat2.l1">Operasional pembangkitan tenaga listrik</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-yellow-500 mt-1"></i>
+                  <span data-i18n="projects.cat2.l2">Sistem transmisi dan distribusi</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-yellow-500 mt-1"></i>
+                  <span data-i18n="projects.cat2.l3">Kegiatan penunjang teknis kelistrikan</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Category 3: Trade -->
+          <div
+            class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110">
+            </div>
+            <div class="relative z-10">
+              <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-6">
+                <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n="projects.cat3.title">Perdagangan Besar &
+                Pengadaan</h3>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-1"></i>
+                  <span data-i18n="projects.cat3.l1">Pengadaan bahan dan perlengkapan bangunan</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-1"></i>
+                  <span data-i18n="projects.cat3.l2">Pengadaan mesin dan suku cadang</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-blue-500 mt-1"></i>
+                  <span data-i18n="projects.cat3.l3">Perdagangan kontrak atau fee based</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Category 4: Logistics -->
+          <div
+            class="bg-white p-8 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+            <div
+              class="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110">
+            </div>
+            <div class="relative z-10">
+              <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-6">
+                <i data-lucide="container" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n="projects.cat4.title">Logistik & Distribusi
+              </h3>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-purple-500 mt-1"></i>
+                  <span data-i18n="projects.cat4.l1">Penanganan dan pengelolaan kargo</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-purple-500 mt-1"></i>
+                  <span data-i18n="projects.cat4.l2">Aktivitas bongkar muat</span>
+                </li>
+                <li class="flex items-start gap-2 text-sm text-gray-600">
+                  <i data-lucide="check" class="w-4 h-4 text-purple-500 mt-1"></i>
+                  <span data-i18n="projects.cat4.l3">Jasa penunjang angkutan proyek</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Approach & Sustainability -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-gray-900 rounded-2xl overflow-hidden">
+          <div class="p-8 md:p-12 text-white">
+            <h3 class="text-2xl font-bold mb-6" data-i18n="projects.approach.title">Pendekatan Pelaksanaan</h3>
+            <ul class="space-y-4">
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">1</div>
+                <span data-i18n="projects.approach.l1">Perencanaan dan koordinasi matang</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">2</div>
+                <span data-i18n="projects.approach.l2">Pengelolaan sumber daya efektif</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">3</div>
+                <span data-i18n="projects.approach.l3">Pengawasan mutu dan K3 Ketat</span>
+              </li>
+            </ul>
+          </div>
+          <div class="bg-gray-800 p-8 md:p-12 h-full flex flex-col justify-center">
+            <h3 class="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
+              <i data-lucide="leaf" class="w-5 h-5"></i>
+              <span data-i18n="projects.sust.title">Komitmen Keberlanjutan</span>
+            </h3>
+            <p class="text-gray-300 leading-relaxed text-sm" data-i18n="projects.sust.desc">
+              Kami menyadari bahwa setiap proyek memiliki dampak. Oleh karena itu, PT. Daya Karya Energi berkomitmen
+              untuk menjalankan proyek secara bertanggung jawab, memperhatikan aspek keselamatan, lingkungan, serta
+              keberlanjutan usaha jangka panjang.
+            </p>
+          </div>
+        </div>
+
+        <!-- Closing -->
+        <div class="text-center pt-8 border-t border-gray-200">
+          <p class="text-gray-600 italic" data-i18n="projects.closing">
+            "PT. Daya Karya Energi terus membuka peluang kerja sama dan siap menjadi mitra terpercaya dalam pelaksanaan
+            proyek-proyek strategis Anda."
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    </div>
+    </div>
+  </section>
+
+  <!-- Job Reviews Section -->
+  <section id="ulasan" class="py-20 bg-gray-50 border-t border-gray-200">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-strip-title text-3xl font-bold text-gray-900 mb-4 inline-block" data-i18n="reviews.title">
+          Ulasan Pekerjaan</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto" data-i18n="reviews.subtitle">Bukti nyata kepuasan pelanggan atas
+          layanan profesional kami.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Review Card 1 (User Provided) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-ac-pltu-COpRjmzc.jpg" alt="Cleaning AC PLTU"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div
+              class="absolute top-4 left-4 bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Maintenance</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r1.title">Cleaning AC di PLTU</h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r1.desc">"Pekerjaan sangat memuaskan, tim bekerja
+              profesional dan rapi."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: PLTU-AC-01</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card 2 (New) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-rewinding-motor-BF17-uVH.jpg" alt="Rewinding Motor"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div
+              class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Logistics</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r2.title">Rewinding & Pengiriman Motor
+            </h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r2.desc">"Paket pekerjaan rewinding dan pengiriman
+              motor sangat memuaskan, pelayanan PT DKE."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: MTR-LOG-02</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card 3 (New) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-septic-tank-CmPo-4zc.jpg" alt="Cleaning Septic Tank"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div
+              class="absolute top-4 left-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Sanitation</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r3.title">Jasa Pembersihan Septic Tank
+            </h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r3.desc">"Jasa pembersihan Septic tank sangat
+              memuaskan."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: SPT-CLN-03</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card 4 (New) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-backdrop-Sc4VJZtl.jpg" alt="Backdrop Installation"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div
+              class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Interior</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r4.title">Jasa Pemasangan Backdrop</h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r4.desc">"Jasa Pemasangan Backdrop sangat
+              memuaskan."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: INT-BCK-04</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card 5 (New) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-pc-purchase-C326XGi_.jpg" alt="PC Supply"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div
+              class="absolute top-4 left-4 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Procurement</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r5.title">Pengadaan Perangkat PC</h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r5.desc">"Pembelian 2 unit PC sampai dengan selamat,
+              sangat memuaskan."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: IT-SUP-05</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review Card 6 (New) -->
+        <div
+          class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
+          <div class="h-64 overflow-hidden relative">
+            <img src="./assets/review-triseda-DiVpSdoo.jpg" alt="Triseda Repair"
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+            <div class="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+              Automotive</div>
+          </div>
+          <div class="p-8">
+            <div class="flex items-center gap-1 mb-4 text-yellow-400">
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+              <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-2" data-i18n="reviews.r6.title">Perbaikan Motor Triseda</h3>
+            <p class="text-gray-600 italic mb-6" data-i18n="reviews.r6.desc">"Perbaikan unit sepeda motor (Triseda)
+              sangat memuaskan pelayanan."</p>
+            <div class="flex items-center justify-between border-t border-gray-100 pt-4">
+              <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Project ID: AUTO-REP-06</span>
+              <div class="w-8 h-8 bg-blue-50 rounded-full flex items-center justify-center text-blue-900">
+                <i data-lucide="thumbs-up" class="w-4 h-4"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="py-16 bg-blue-900 relative overflow-hidden">
+    <div class="absolute top-0 right-0 opacity-10">
+      <i data-lucide="zap" class="w-96 h-96 text-white"></i>
+    </div>
+    <div class="container mx-auto px-4 md:px-8 relative z-10 text-center">
+      <h2 class="text-3xl font-bold text-white mb-6" data-i18n="cta.title">Siap Bekerja Sama Dalam Proyek Anda?</h2>
+      <p class="text-blue-200 mb-8 max-w-2xl mx-auto" data-i18n="cta.desc">
+        Hubungi kami untuk konsultasi mengenai kebutuhan konstruksi, pengadaan barang, atau solusi energi perusahaan
+        Anda.
+      </p>
+      <a href="#kontak"
+        class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-colors shadow-lg"
+        data-i18n="cta.btn">
+        Hubungi Kami Sekarang
+      </a>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="kontak" class="py-20 bg-white">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-blue-900 text-sm font-bold uppercase tracking-widest mb-2" data-i18n="contact.title">
+            Informasi Kontak</h2>
+          <h3 class="text-3xl font-bold text-gray-900 mb-8" data-i18n="contact.office">Kantor Pusat</h3>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
+                <i data-lucide="map-pin" class="text-blue-900 w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 mb-1" data-i18n="contact.addr.Label">Alamat</h4>
+                <p class="text-gray-600">
+                  Jalan Trans Sulawesi, Desa Sabo, <br />
+                  Kecamatan Ampana Tete, Kabupaten Tojo Una-Una,<br />
+                  Provinsi Sulawesi Tengah.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
+                <i data-lucide="phone" class="text-blue-900 w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 mb-1" data-i18n="contact.phone.Label">Telepon</h4>
+                <p class="text-gray-600">0822-9348-3048</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
+                <i data-lucide="mail" class="text-blue-900 w-6 h-6"></i>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-900 mb-1" data-i18n="contact.email.Label">Email</h4>
+                <p class="text-gray-600">ptdayakaryaenergy@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Maps -->
+        <div class="mt-8">
+          <h4 class="font-bold text-gray-900 mb-4" data-i18n="contact.loc.title">Lokasi Kami</h4>
+          <div class="rounded-xl overflow-hidden shadow-md border border-gray-100">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d151427.5540846849!2d121.40902690240264!3d-0.9146119469951521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d88a8940d35470d%3A0x4030bfbcaf781c0!2sKec.%20Ampana%20Kota%2C%20Kabupaten%20Tojo%20Una-Una%2C%20Sulawesi%20Tengah!5e1!3m2!1sid!2sid!4v1766375001305!5m2!1sid!2sid"
+              width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100 shadow-sm">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6" data-i18n="contact.form.title">Kirim Pesan</h3>
+        <!-- Contact Form -->
+        <form id="contact-form" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.form.name">Nama
+              Lengkap</label>
+            <input type="text" id="name" required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent outline-none transition-all"
+              placeholder="Nama Anda" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.form.email">Email</label>
+            <input type="email" id="email" required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent outline-none transition-all"
+              placeholder="email@contoh.com" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.form.msg">Pesan</label>
+            <textarea id="message" rows="4" required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-900 focus:border-transparent outline-none transition-all"
+              placeholder="Bagaimana kami bisa membantu Anda?"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <button type="submit"
+              class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-current">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+              </svg>
+              <span data-i18n="contact.form.btn"></span>Kirim via WhatsApp</span>
+            </button>
+
+            <a href="mailto:ptdayakaryaenergy@gmail.com"
+              class="w-full bg-blue-50 hover:bg-blue-100 text-blue-900 font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 border border-blue-200">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+              <span data-i18n="contact.form.emailBtn">Kirim via Email</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Ornamen atas footer (CSS) -->
+    <div class="footer-shape"></div>
+
+    <!-- Main Footer Content -->
+    <div class="footer">
+      <div class="container mx-auto px-4 md:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+
+          <!-- Logo Section -->
+          <div class="flex items-center gap-3 md:mb-0">
+            <img src="./assets/brand-logo-CeFxVA4j.png" alt="PT. Daya Karya Energi"
+              class="h-12 w-auto brightness-0 invert opacity-90 hover:opacity-100 transition-opacity" />
+          </div>
+
+          <!-- Navigation Links -->
+          <div class="flex space-x-8 text-base text-gray-300 font-medium">
+            <a href="#" class="hover:text-white transition-colors" data-i18n="nav.home">Beranda</a>
+            <a href="#layanan" class="hover:text-white transition-colors" data-i18n="nav.services">Layanan</a>
+            <a href="#" class="hover:text-white transition-colors" data-i18n="nav.projects">Proyek</a>
+            <a href="#kontak" class="hover:text-white transition-colors" data-i18n="nav.contact">Kontak</a>
+          </div>
+        </div>
+
+        <!-- Copyright Section -->
+        <div class="border-t border-blue-800 pt-8 text-sm text-gray-300 font-light text-center md:text-left">
+          <p>&copy;
+            <script>document.write(new Date().getFullYear())</script> PT. Daya Karya Energi. All rights reserved.
+          </p>
+          <p class="mt-2 text-xs opacity-70">Based on Akta Pendirian No. 31 Tanggal 29 Juli 2025.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Logic -->
+  <script src="app.js"></script>
+  </div> <!-- End Main Content Wrapper -->
 </body>
 
 </html>
