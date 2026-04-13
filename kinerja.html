@@ -21,11 +21,74 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
         }
+
+        /* Gatekeeper Styles */
+        #gatekeeper-overlay {
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+        #main-content {
+            transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s ease-out;
+        }
+        .content-hidden {
+            filter: blur(20px);
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
+
+    <script>
+        // Immediate check to prevent flash of sensitive content
+        (function() {
+            const isVerified = sessionStorage.getItem('dke_verified_member');
+            if (isVerified) {
+                document.documentElement.classList.add('verified-init');
+            }
+        })();
+    </script>
 </head>
 
 <body class="bg-slate-50 text-slate-800 font-sans">
-    <!-- Navbar -->
+    <!-- Verification Gatekeeper Overlay -->
+    <div id="gatekeeper-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-xl">
+        <div class="max-w-md w-full mx-4 animate-scale-in">
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+                <div class="bg-blue-900 p-8 text-center text-white relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-red-600"></div>
+                    <div class="w-20 h-20 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-blue-700 shadow-xl">
+                        <i data-lucide="shield-check" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold uppercase tracking-widest">Akses Terbatas</h2>
+                    <p class="text-blue-200 text-sm mt-2">Halaman ini berisi informasi sensitif. Silakan masukkan nama member Anda untuk melanjutkan.</p>
+                </div>
+                <div class="p-8 space-y-6 bg-slate-50">
+                    <div class="space-y-2">
+                        <label for="member-name" class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Nama Member</label>
+                        <div class="relative">
+                            <input type="text" id="member-name" 
+                                class="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-slate-200 focus:border-blue-600 focus:ring-0 outline-none transition-all text-lg font-semibold text-slate-800">
+                            <i data-lucide="user" class="w-6 h-6 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                        </div>
+                    </div>
+                    <button id="verify-btn" class="w-full bg-blue-900 hover:bg-red-600 text-white font-bold py-4 rounded-2xl shadow-lg transform hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Masuk & Lihat Laporan
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                    <p id="error-msg" class="text-red-500 text-sm font-bold text-center hidden animate-bounce">
+                        Nama tidak terdaftar. Periksa kembali dan coba lagi.
+                    </p>
+                    <div class="pt-4 border-t border-slate-200 text-center">
+                        <a href="index.html" class="text-slate-400 hover:text-slate-600 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1">
+                            <i data-lucide="chevron-left" class="w-4 h-4"></i> Kembali ke Beranda
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapped for Blurring -->
+    <div id="main-content" class="content-hidden">
+        <!-- Navbar -->
     <nav id="navbar" class="fixed top-0 w-full z-50 bg-white shadow-md transition-all duration-300 py-2">
         <div class="container mx-auto px-4 md:px-8 flex justify-between items-center">
             <!-- Logo -->
@@ -732,6 +795,7 @@
             </div>
         </div>
     </footer>
+</div>
 
     <script>
         // Init Lucide
@@ -1004,14 +1068,67 @@
             });
         }
 
-        // Cegah scroll turun jika browser mengingat posisi sebelumnya
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-        window.scrollTo(0, 0);
-
         // Initial Render
         renderTable();
+
+        // --- GATEKEEPER LOGIC ---
+        const gatekeeperOverlay = document.getElementById('gatekeeper-overlay');
+        const mainContent = document.getElementById('main-content');
+        const memberInput = document.getElementById('member-name');
+        const verifyBtn = document.getElementById('verify-btn');
+        const errorMsg = document.getElementById('error-msg');
+
+        const authorizedNames = [
+            'adiatma', 
+            'tomy bachtiar', 
+            'tomy b', 
+            'muh. sultrisno', 
+            'sultrisno',
+            'budi widjaja', 
+            'wisnu wijaya', 
+            'eko suyanto wibowo',
+            'abdul rahman',
+            'abd. rahman malotolo'
+        ];
+
+        function unlockContent(animate = true) {
+            if (animate) {
+                gatekeeperOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    gatekeeperOverlay.classList.add('hidden');
+                    mainContent.classList.remove('content-hidden');
+                }, 500);
+            } else {
+                gatekeeperOverlay.classList.add('hidden');
+                mainContent.classList.remove('content-hidden');
+            }
+        }
+
+        function checkVerification() {
+            const stored = sessionStorage.getItem('dke_verified_member');
+            if (stored && authorizedNames.includes(stored.toLowerCase())) {
+                unlockContent(false);
+            }
+        }
+
+        verifyBtn.addEventListener('click', () => {
+            const inputVal = memberInput.value.trim().toLowerCase();
+            if (authorizedNames.includes(inputVal)) {
+                sessionStorage.setItem('dke_verified_member', inputVal);
+                unlockContent(true);
+            } else {
+                errorMsg.classList.remove('hidden');
+                memberInput.classList.add('border-red-500', 'animate-shake');
+                setTimeout(() => memberInput.classList.remove('animate-shake'), 500);
+            }
+        });
+
+        memberInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyBtn.click();
+        });
+
+        // Initialize verification check
+        checkVerification();
         
     </script>
 </body>
